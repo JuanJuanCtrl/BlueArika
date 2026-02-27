@@ -9,6 +9,9 @@ public class Scene01Events : MonoBehaviour
     public GameObject charHaruka;
     public GameObject textBox;
 
+    [SerializeField] AudioSource girlSigh;
+    [SerializeField] AudioSource girlGasp;    
+
     void Start()
     {
         StartCoroutine(EventStarter());
@@ -22,8 +25,10 @@ public class Scene01Events : MonoBehaviour
         yield return new WaitForSeconds(2);
         // this is where our text function will go in future tutorial
         textBox.SetActive(true);
+        girlSigh.Play();
         yield return new WaitForSeconds(2);
         charHaruka.SetActive(true);
+        girlGasp.Play();
     }
 
     // Update is called once per frame
