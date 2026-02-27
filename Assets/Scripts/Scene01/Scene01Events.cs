@@ -7,6 +7,7 @@ public class Scene01Events : MonoBehaviour
     public GameObject fadeScreenIn;
     public GameObject charKasumi;
     public GameObject charHaruka;
+    public GameObject textBox;
 
     void Start()
     {
@@ -20,6 +21,7 @@ public class Scene01Events : MonoBehaviour
         charKasumi.SetActive(true);
         yield return new WaitForSeconds(2);
         // this is where our text function will go in future tutorial
+        textBox.SetActive(true);
         yield return new WaitForSeconds(2);
         charHaruka.SetActive(true);
     }
