@@ -17,6 +17,8 @@ public class Scene01Events : MonoBehaviour
     [SerializeField] int currentTextLength;
     [SerializeField] int textLength;
     [SerializeField] GameObject mainTextObject;
+    [SerializeField] GameObject nextButton;
+    [SerializeField] int eventPos = 0;
 
     void Update()
     {
@@ -45,13 +47,13 @@ public class Scene01Events : MonoBehaviour
         yield return new WaitForSeconds(1);
         yield return new WaitUntil(() => textLength == currentTextLength);
         yield return new WaitForSeconds(0.05f);
+        nextButton.SetActive(true);
 
 
-
-        textBox.SetActive(true);
-        yield return new WaitForSeconds(2);
-        charHaruka.SetActive(true);
-        girlGasp.Play();
+        //textBox.SetActive(true);
+        //yield return new WaitForSeconds(2);
+        //charHaruka.SetActive(true);
+        //girlGasp.Play();
     }
 
 }
