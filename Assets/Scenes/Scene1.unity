@@ -1364,7 +1364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1244825803
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1834,6 +1834,7 @@ MonoBehaviour:
   mainTextObject: {fileID: 610032694}
   nextButton: {fileID: 1864202513}
   eventPos: 0
+  charName: {fileID: 1129504176}
 --- !u!4 &1704146424
 Transform:
   m_ObjectHideFlags: 0
@@ -1964,7 +1965,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1864202516}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1704146423}
+        m_TargetAssemblyTypeName: Scene01Events, Assembly-CSharp
+        m_MethodName: NextButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1864202516
 MonoBehaviour:
   m_ObjectHideFlags: 0
