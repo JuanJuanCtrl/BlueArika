@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Scene01Events : MonoBehaviour
 {
@@ -110,15 +111,16 @@ public class Scene01Events : MonoBehaviour
         eventPos = 4;
     }
 
-            IEnumerator EventFour()
+    IEnumerator EventFour()
     {
         // event 4
         nextButton.SetActive(false);
         charHaruka.SetActive(true);
         textBox.SetActive(true);
         fadeOut.SetActive(true);
-        yield return new WaitForSeconds(2);
-        eventPos = 5;
+        yield return new WaitForSeconds(4);
+        eventPos = 4;
+        SceneManager.LoadScene(1);
     }
 
     public void NextButton()
