@@ -15,6 +15,9 @@ public class Scene02Event : MonoBehaviour
     [SerializeField] int eventPos = 0;
     [SerializeField] GameObject treeInteract;
     [SerializeField] GameObject houseInteract;
+    [SerializeField] GameObject charAkane;
+    [SerializeField] GameObject fadeOut;
+    [SerializeField] GameObject charName;
 
     void Start()
     {
@@ -62,6 +65,11 @@ public class Scene02Event : MonoBehaviour
         StartCoroutine(TreeInteractSeq());
     }
 
+    public void BuildingInteract()
+    {
+        StartCoroutine(BuildingInteractSeq());
+    }
+
     IEnumerator TreeInteractSeq()
     {
         treeInteract.SetActive(false);
@@ -85,6 +93,33 @@ public class Scene02Event : MonoBehaviour
         charKasumi.SetActive(false);
         mainTextObject.SetActive(false);
         houseInteract.SetActive(true);
+
+    }
+
+    IEnumerator BuildingInteractSeq()
+    {
+        treeInteract.SetActive(false);
+        houseInteract.SetActive(false);
+        charAkane.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        charName.GetComponent<TMPro.TMP_Text>().text = "Akane";
+        // this is where our text function will go in future tutorial
+        mainTextObject.SetActive(true);
+        textToSpeak = "Oh you found me. Hehe. Lets all go somewhere else.";
+        textBox.GetComponent<TMPro.TMP_Text>().text = textToSpeak;
+        currentTextLength = textToSpeak.Length;
+        TextCreator.runTextPrint = true;
+        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(1);
+        yield return new WaitUntil(() => textLength == currentTextLength);
+        yield return new WaitForSeconds(0.5f);
+        //nextButton.SetActive(true);
+        eventPos = 3;
+        // auto start looking for Akane
+        yield return new WaitForSeconds(2);
+        charAkane.SetActive(false);
+        mainTextObject.SetActive(false);
+        fadeOut.SetActive(true);
 
     }
 
