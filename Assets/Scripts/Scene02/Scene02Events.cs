@@ -18,9 +18,26 @@ public class Scene02Event : MonoBehaviour
     [SerializeField] GameObject charAkane;
     [SerializeField] GameObject fadeOut;
     [SerializeField] GameObject charName;
+    //these are for the randomized scene
+    [SerializeField] GameObject parkDay;
+    [SerializeField] GameObject parkNight;
+    [SerializeField] GameObject dayBGM;
+    [SerializeField] GameObject nightBGM;
+    [SerializeField] int randomScene;
 
     void Start()
     {
+        randomScene = Random.Range(1, 3);
+        if(randomScene == 1)
+        {
+            parkDay.SetActive(true);
+            dayBGM.SetActive(true);
+        }
+        else
+        {
+            parkNight.SetActive(true);
+            nightBGM.SetActive(true);
+        }
         StartCoroutine(EventStarter());
     }
 

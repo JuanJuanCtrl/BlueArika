@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &27370944
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1846,6 +1846,11 @@ MonoBehaviour:
   charAkane: {fileID: 1481610770}
   fadeOut: {fileID: 1535045723}
   charName: {fileID: 184391839}
+  parkDay: {fileID: 528591484}
+  parkNight: {fileID: 750997827}
+  dayBGM: {fileID: 1013466768}
+  nightBGM: {fileID: 507880455}
+  randomScene: 0
 --- !u!4 &1065850823
 Transform:
   m_ObjectHideFlags: 0
