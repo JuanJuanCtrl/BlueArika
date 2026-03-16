@@ -120,7 +120,7 @@ public class Scene01Events : MonoBehaviour
         fadeOut.SetActive(true);
         yield return new WaitForSeconds(4);
         eventPos = 4;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(3);
     }
 
     public void NextButton()
