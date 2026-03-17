@@ -12,10 +12,12 @@ public class MainMenu : MonoBehaviour
     [SerializeField] bool isAnimating = false;
     [SerializeField] GameObject fadeOut;
     [SerializeField] AudioSource buttonClick;
+    [SerializeField] int sceneToLoad;
+    [SerializeField] int saveTransferValue;
 
     void Start()
     {
-        
+
     }
 
     public void StartGame()
@@ -23,6 +25,19 @@ public class MainMenu : MonoBehaviour
         buttonClick.Play();
         fadeOut.SetActive(true);
         StartCoroutine(TransferToClassScene());
+    }
+
+    public void LoadGame()
+    {
+        saveTransferValue = PlayerPrefs.GetInt("LoadState");
+        if (saveTransferValue > 0)
+        {
+            sceneToLoad = saveTransferValue + 1;
+            buttonClick.Play();
+            fadeOut.SetActive(true);
+            StartCoroutine(LoadScene());
+        }
+
     }
 
 
@@ -39,7 +54,7 @@ public class MainMenu : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         picNum = Random.Range(1, 4);
-        if(picNum == 1)
+        if (picNum == 1)
         {
             menuPic1.SetActive(true);
             menuPic2.SetActive(false);
@@ -68,5 +83,10 @@ public class MainMenu : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene(2);
+    }
+    IEnumerator LoadScene()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(sceneToLoad);
     }
 }

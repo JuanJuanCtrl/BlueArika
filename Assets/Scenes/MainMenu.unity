@@ -201,7 +201,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 22567278}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2030898377}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: LoadGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &22567278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1966,6 +1978,8 @@ MonoBehaviour:
   isAnimating: 0
   fadeOut: {fileID: 87346568}
   buttonClick: {fileID: 1817431454}
+  sceneToLoad: 0
+  saveTransferValue: 0
 --- !u!4 &2030898378
 Transform:
   m_ObjectHideFlags: 0

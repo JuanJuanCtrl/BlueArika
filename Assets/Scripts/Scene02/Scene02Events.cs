@@ -27,6 +27,7 @@ public class Scene02Event : MonoBehaviour
 
     void Start()
     {
+        PlayerPrefs.SetInt("LoadState", 2);
         randomScene = Random.Range(1, 3);
         if(randomScene == 1)
         {
