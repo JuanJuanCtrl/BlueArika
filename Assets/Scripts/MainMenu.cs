@@ -14,10 +14,11 @@ public class MainMenu : MonoBehaviour
     [SerializeField] AudioSource buttonClick;
     [SerializeField] int sceneToLoad;
     [SerializeField] int saveTransferValue;
+    [SerializeField] GameObject fadeIn;
 
     void Start()
     {
-
+        StartCoroutine(StopFade());
     }
 
     public void StartGame()
@@ -97,9 +98,15 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(sceneToLoad);
     }
 
-        IEnumerator TransferToCredits()
+    IEnumerator TransferToCredits()
     {
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene(4);
+    }
+
+    IEnumerator StopFade()
+    {
+        yield return new WaitForSeconds(2);
+        fadeIn.SetActive(false);
     }
 }
