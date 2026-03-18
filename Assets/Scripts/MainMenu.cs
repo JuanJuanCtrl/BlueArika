@@ -48,6 +48,11 @@ public class MainMenu : MonoBehaviour
         StartCoroutine(TransferToCredits());
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
 
     void Update()
     {
