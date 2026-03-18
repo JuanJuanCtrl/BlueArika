@@ -40,6 +40,13 @@ public class MainMenu : MonoBehaviour
 
     }
 
+    public void GotToCredits()
+    {
+        buttonClick.Play();
+        fadeOut.SetActive(true);
+        StartCoroutine(TransferToCredits());
+    }
+
 
     void Update()
     {
@@ -88,5 +95,11 @@ public class MainMenu : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene(sceneToLoad);
+    }
+
+        IEnumerator TransferToCredits()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(4);
     }
 }
