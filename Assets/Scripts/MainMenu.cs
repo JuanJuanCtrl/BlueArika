@@ -7,7 +7,6 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] GameObject menuPic1;
     [SerializeField] GameObject menuPic2;
-    [SerializeField] GameObject menuPic3;
     [SerializeField] int picNum = 1;
     [SerializeField] bool isAnimating = false;
     [SerializeField] GameObject fadeOut;
@@ -38,7 +37,6 @@ public class MainMenu : MonoBehaviour
             fadeOut.SetActive(true);
             StartCoroutine(LoadScene());
         }
-
     }
 
     public void GotToCredits()
@@ -53,7 +51,6 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-
     void Update()
     {
         if (isAnimating == false)
@@ -66,29 +63,20 @@ public class MainMenu : MonoBehaviour
     IEnumerator RandomPic()
     {
         yield return new WaitForSeconds(1);
-        picNum = Random.Range(1, 4);
+        picNum = Random.Range(1, 3);  // Changed from 1,4 to 1,3
         if (picNum == 1)
         {
             menuPic1.SetActive(true);
             menuPic2.SetActive(false);
-            menuPic3.SetActive(false);
         }
-        if (picNum == 2)
+        else if (picNum == 2)  // Changed from if (picNum == 2) block
         {
             menuPic1.SetActive(false);
             menuPic2.SetActive(true);
-            menuPic3.SetActive(false);
-        }
-        if (picNum == 3)
-        {
-            menuPic1.SetActive(false);
-            menuPic2.SetActive(false);
-            menuPic3.SetActive(true);
         }
         yield return new WaitForSeconds(7);
         menuPic1.SetActive(false);
         menuPic2.SetActive(false);
-        menuPic3.SetActive(false);
         isAnimating = false;
     }
 
@@ -97,6 +85,7 @@ public class MainMenu : MonoBehaviour
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene(2);
     }
+
     IEnumerator LoadScene()
     {
         yield return new WaitForSeconds(3);

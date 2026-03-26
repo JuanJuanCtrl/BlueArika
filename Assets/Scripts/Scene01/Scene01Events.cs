@@ -5,9 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class Scene01Events : MonoBehaviour
 {
+    [Header("Character Expressions")]
+    public GameObject charKodaNeutral;
+    public GameObject charKodaSurprised;
+    public GameObject charKodaSmirk;
+    public GameObject charKodaSmile;
+    public GameObject charKodaEmbarrassed;
+    
     public GameObject fadeScreenIn;
-    public GameObject charKasumi;
-    public GameObject charHaruka;
     public GameObject textBox;
     [SerializeField] AudioSource girlSigh;
     [SerializeField] AudioSource girlGasp;
@@ -35,23 +40,54 @@ public class Scene01Events : MonoBehaviour
         StartCoroutine(EventStarter());
     }
 
+    void HideAllExpressions()
+    {
+        charKodaNeutral.SetActive(false);
+        charKodaSurprised.SetActive(false);
+        charKodaSmirk.SetActive(false);
+        charKodaSmile.SetActive(false);
+        charKodaEmbarrassed.SetActive(false);
+    }
+
+    void ShowExpression(string expression)
+    {
+        HideAllExpressions();
+        switch (expression)
+        {
+            case "neutral":
+                charKodaNeutral.SetActive(true);
+                break;
+            case "surprised":
+                charKodaSurprised.SetActive(true);
+                break;
+            case "smirk":
+                charKodaSmirk.SetActive(true);
+                break;
+            case "smile":
+                charKodaSmile.SetActive(true);
+                break;
+            case "embarrassed":
+                charKodaEmbarrassed.SetActive(true);
+                break;
+        }
+    }
+
     IEnumerator EventStarter()
     {
-        // initial fade & character appear
+        // initial fade & character appear (Koda neutral initially)
         yield return new WaitForSeconds(2f);
         fadeScreenIn.SetActive(false);
-        charKasumi.SetActive(true);
+        ShowExpression("neutral");
         yield return new WaitForSeconds(2f);
 
         mainTextObject.SetActive(true);
         textBox.SetActive(true);
-        charName.GetComponent<TMPro.TMP_Text>().text = "Kasumi";
+        charName.GetComponent<TMPro.TMP_Text>().text = "Koda";
 
         // start first intro line
         introIndex = 0;
         yield return StartCoroutine(PlayIntroLine(introIndex));
 
-        // after the first line, we'll rely on NextButton to advance
         eventPos = 0; // 0 = still in intro sequence
     }
 
@@ -59,30 +95,33 @@ public class Scene01Events : MonoBehaviour
     {
         nextButton.SetActive(false);
 
+        // Set expression based on line
         switch (index)
         {
-            case 0:
+            case 0: // "Oh! My bad..."
+                ShowExpression("surprised");
                 textToSpeak = "Oh! My bad, this always happens on this bump.";
                 break;
-            case 1:
+            case 1: // laugh
+                ShowExpression("smile");
                 textToSpeak = "[He laughs, brushing his hair back]";
                 break;
-            case 2:
+            case 2: // excited about meeting
+                ShowExpression("smile");
                 textToSpeak = "Wait… You're the new transfer student, right? No way! I actually got to meet you first.";
                 break;
-            case 3:
+            case 3: // confident
+                ShowExpression("smirk");
                 textToSpeak = "[He grins] Guess that means I've got a head start on being your first friend!";
                 break;
         }
 
-        // Set character name for intro lines
-        charName.GetComponent<TMPro.TMP_Text>().text = "Kasumi";
+        charName.GetComponent<TMPro.TMP_Text>().text = "Koda";
 
         textBox.GetComponent<TMPro.TMP_Text>().text = textToSpeak;
         currentTextLength = textToSpeak.Length;
         TextCreator.runTextPrint = true;
 
-        // optional: play a sound only on the first line
         if (index == 0 && girlSigh != null)
         {
             girlSigh.Play();
@@ -90,10 +129,7 @@ public class Scene01Events : MonoBehaviour
 
         yield return new WaitForSeconds(0.05f);
         yield return new WaitForSeconds(1f);
-
-        // wait for typewriter to finish
         yield return new WaitUntil(() => textLength >= currentTextLength);
-
         yield return new WaitForSeconds(0.5f);
         nextButton.SetActive(true);
     }
@@ -102,35 +138,43 @@ public class Scene01Events : MonoBehaviour
     {
         nextButton.SetActive(false);
 
-        // Set character name based on line type - "You" for bracketed narration (0,6,7), "Koda" for dialogue
+        // Set expression and name based on line
         bool isNarration = (index == 0 || index == 6 || index == 7);
         charName.GetComponent<TMPro.TMP_Text>().text = isNarration ? "You" : "Koda";
 
         switch (index)
         {
             case 0:
+                ShowExpression("surprised");
                 textToSpeak = "[You feel a surge of energy coursing through you. He facepalms]";
                 break;
             case 1:
+                ShowExpression("smile");
                 textToSpeak = "Oh, I almost forgot to introduce myself. My name is Koda Sable, but you can just call me Koda.";
                 break;
             case 2:
+                ShowExpression("neutral");
                 textToSpeak = "Anyways, we're close to school. Bummer…";
                 break;
             case 3:
+                ShowExpression("smile");
                 textToSpeak = "I hope we have classes together, we can sneak notes and stuff!";
                 break;
             case 4:
+                ShowExpression("embarrassed"); // Perfect for "lovers" slip-up!
                 textToSpeak = "Wait no, that's what lovers do.";
                 break;
             case 5:
+                ShowExpression("smile");
                 textToSpeak = "You know what, let's hang out after school!";
                 break;
             case 6:
+                ShowExpression("smile"); // Neutral for player narration
                 textToSpeak = "[You felt determined to make the most out of this situation. You agreed to hanging out with him after school.]";
                 break;
             case 7:
-                textToSpeak = "What could be the worst that could happen?]";
+                ShowExpression("smile");
+                textToSpeak = "[What could be the worst that could happen?]";
                 break;
         }
 
@@ -140,57 +184,15 @@ public class Scene01Events : MonoBehaviour
 
         yield return new WaitForSeconds(0.05f);
         yield return new WaitForSeconds(1f);
-
-        // wait for typewriter to finish
-        yield return new WaitUntil(() => textLength >= currentTextLength);
-
-        yield return new WaitForSeconds(0.5f);
-        nextButton.SetActive(true);
-    }
-
-    IEnumerator EventTwo()
-    {
-        // event 2
-        nextButton.SetActive(false);
-        charHaruka.SetActive(true);
-        textBox.SetActive(true);
-        charName.GetComponent<TMPro.TMP_Text>().text = "Kasumi";
-        textToSpeak = "Oh, you startled me. I didn't expect you there.";
-        textBox.GetComponent<TMPro.TMP_Text>().text = textToSpeak;
-        currentTextLength = textToSpeak.Length;
-        TextCreator.runTextPrint = true;
-        yield return new WaitForSeconds(0.05f);
-        yield return new WaitForSeconds(1f);
         yield return new WaitUntil(() => textLength >= currentTextLength);
         yield return new WaitForSeconds(0.5f);
         nextButton.SetActive(true);
-        eventPos = 3;
-    }
-
-    IEnumerator EventThree()
-    {
-        // event 3
-        nextButton.SetActive(false);
-        charHaruka.SetActive(true);
-        textBox.SetActive(true);
-        charName.GetComponent<TMPro.TMP_Text>().text = "Haruka";
-        textToSpeak = "I'm sorry, I didn't meant to... Let's go the park and look for Akane.";
-        textBox.GetComponent<TMPro.TMP_Text>().text = textToSpeak;
-        currentTextLength = textToSpeak.Length;
-        TextCreator.runTextPrint = true;
-        yield return new WaitForSeconds(0.05f);
-        yield return new WaitForSeconds(1f);
-        yield return new WaitUntil(() => textLength >= currentTextLength);
-        yield return new WaitForSeconds(0.5f);
-        nextButton.SetActive(true);
-        eventPos = 4;
     }
 
     IEnumerator EventFour()
     {
-        // event 4
         nextButton.SetActive(false);
-        charHaruka.SetActive(true);
+        ShowExpression("smile"); // Final smile before fade
         textBox.SetActive(true);
         fadeOut.SetActive(true);
         yield return new WaitForSeconds(4f);
@@ -199,19 +201,15 @@ public class Scene01Events : MonoBehaviour
 
     public void NextButton()
     {
-        // still in intro sequence
         if (eventPos == 0)
         {
             introIndex++;
-
-            // we have 4 intro lines: 0,1,2,3
             if (introIndex <= 3)
             {
                 StartCoroutine(PlayIntroLine(introIndex));
             }
             else
             {
-                // intro finished, move to Koda dialogue
                 eventPos = 1;
                 kodaIndex = 0;
                 StartCoroutine(PlayKodaLine(kodaIndex));
@@ -219,35 +217,22 @@ public class Scene01Events : MonoBehaviour
             return;
         }
 
-        // in Koda dialogue sequence (eventPos == 1)
         if (eventPos == 1)
         {
             kodaIndex++;
-
-            // 8 Koda lines: 0-7
             if (kodaIndex <= 7)
             {
                 StartCoroutine(PlayKodaLine(kodaIndex));
             }
             else
             {
-                // Koda dialogue finished, move to main events
-                eventPos = 2;
-                StartCoroutine(EventTwo());
+                eventPos = 4;
+                StartCoroutine(EventFour());
             }
             return;
         }
 
-        // main events
-        if (eventPos == 2)
-        {
-            StartCoroutine(EventTwo());
-        }
-        else if (eventPos == 3)
-        {
-            StartCoroutine(EventThree());
-        }
-        else if (eventPos == 4)
+        if (eventPos == 4)
         {
             StartCoroutine(EventFour());
         }
