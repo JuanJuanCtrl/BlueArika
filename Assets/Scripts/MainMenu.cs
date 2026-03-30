@@ -83,7 +83,7 @@ public class MainMenu : MonoBehaviour
     IEnumerator TransferToClassScene()
     {
         yield return new WaitForSeconds(3);
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(5);
     }
 
     IEnumerator LoadScene()
