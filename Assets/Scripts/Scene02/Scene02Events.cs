@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class Scene02Event : MonoBehaviour
 {
@@ -23,11 +25,17 @@ public class Scene02Event : MonoBehaviour
     [SerializeField] GameObject charName;
     [SerializeField] GameObject fadeOut;
 
-    [SerializeField] GameObject treeInteract;
-    [SerializeField] GameObject houseInteract;
+    [Header("Choice Buttons")]
+    [SerializeField] Button choiceButton1;
+    [SerializeField] Button choiceButton2;
+    [SerializeField] Button choiceButton3;
+
+    [Header("Choice Lines")]
+    private string[] choiceLines;
+    private int currentLine = 0;
 
     int introIndex = 0;
-    int searchIndex = 0;
+    bool isTyping = false; // Prevents spamming Next
 
     void Update()
     {
@@ -37,6 +45,10 @@ public class Scene02Event : MonoBehaviour
     void Start()
     {
         StartCoroutine(EventStarter());
+        choiceButton1.onClick.AddListener(OnChoice1);
+        choiceButton2.onClick.AddListener(OnChoice2);
+        choiceButton3.onClick.AddListener(OnChoice3);
+        nextButton.SetActive(false); // Ensure it's hidden at start
     }
 
     void HideAllExpressions()
@@ -51,24 +63,13 @@ public class Scene02Event : MonoBehaviour
     void ShowExpression(string expression)
     {
         HideAllExpressions();
-
         switch (expression)
         {
-            case "neutral":
-                charNeutral.SetActive(true);
-                break;
-            case "surprised":
-                charSurprised.SetActive(true);
-                break;
-            case "smirk":
-                charSmirk.SetActive(true);
-                break;
-            case "smile":
-                charSmile.SetActive(true);
-                break;
-            case "embarrassed":
-                charEmbarrassed.SetActive(true);
-                break;
+            case "neutral":     charNeutral.SetActive(true); break;
+            case "surprised":   charSurprised.SetActive(true); break;
+            case "smirk":       charSmirk.SetActive(true); break;
+            case "smile":       charSmile.SetActive(true); break;
+            case "embarrassed": charEmbarrassed.SetActive(true); break;
         }
     }
 
@@ -78,90 +79,195 @@ public class Scene02Event : MonoBehaviour
         fadeScreenIn.SetActive(false);
         ShowExpression("neutral");
         yield return new WaitForSeconds(2f);
-
         mainTextObject.SetActive(true);
         textBox.SetActive(true);
-        charName.GetComponent<TMPro.TMP_Text>().text = "Kasumi";
+        charName.GetComponent<TMP_Text>().text = "Koda";
 
         introIndex = 0;
         yield return StartCoroutine(PlayIntroLine(introIndex));
-
         eventPos = 0;
     }
 
     IEnumerator PlayIntroLine(int index)
     {
         nextButton.SetActive(false);
-
+        isTyping = true;
         switch (index)
+        {
+            case 0:
+                ShowExpression("smile");
+                textToSpeak = "Sooo, how was your first day at Blue Sisters High?";
+                break;
+            case 1:
+                ShowExpression("smile");
+                textToSpeak = "Pretty neat, right?";
+                break;
+            case 2:
+                ShowExpression("neutral");
+                textToSpeak = "[His smile drops as he softly groans]";
+                break;
+            case 3:
+                ShowExpression("neutral");
+                textToSpeak = "Who am I kidding, homeroom is boooring!";
+                break;
+            case 4:
+                ShowExpression("smirk");
+                textToSpeak = "Speaking of homeroom, we managed to get classes together.";
+                break;
+            case 5:
+                ShowExpression("smirk");
+                textToSpeak = "Any chicks caught your fancy?";
+                break;
+        }
+        charName.GetComponent<TMP_Text>().text = "Koda";
+        textBox.GetComponent<TMP_Text>().text = textToSpeak;
+        currentTextLength = textToSpeak.Length;
+        TextCreator.runTextPrint = true;
+
+        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(1f);
+        yield return new WaitUntil(() => textLength >= currentTextLength);
+        yield return new WaitForSeconds(0.5f);
+        nextButton.SetActive(true);
+        isTyping = false;
+    }
+
+    void ShowChoiceButtons()
+    {
+        choiceButton1.gameObject.SetActive(true);
+        choiceButton2.gameObject.SetActive(true);
+        choiceButton3.gameObject.SetActive(true);
+        nextButton.SetActive(false);
+        textBox.SetActive(false);
+        mainTextObject.SetActive(false);
+    }
+
+    void HideChoiceButtons()
+    {
+        choiceButton1.gameObject.SetActive(false);
+        choiceButton2.gameObject.SetActive(false);
+        choiceButton3.gameObject.SetActive(false);
+    }
+
+    public void OnChoice1()
+    {
+        HideChoiceButtons();
+        StartChoiceDialogue(0);
+    }
+
+    public void OnChoice2()
+    {
+        HideChoiceButtons();
+        StartChoiceDialogue(1);
+    }
+
+    public void OnChoice3()
+    {
+        HideChoiceButtons();
+        StartChoiceDialogue(2);
+    }
+
+    void StartChoiceDialogue(int choice)
+    {
+        textBox.SetActive(true);
+        mainTextObject.SetActive(true);
+        nextButton.SetActive(false);
+
+        switch (choice)
         {
             case 0:
                 ShowExpression("surprised");
-                textToSpeak = "Let's start looking around.";
+                choiceLines = new string[]
+                {
+                    "Oooh, so you got your eyes on someone already?",
+                    "Come on, who is it?",
+                    "Actually, don’t tell me… Let me guess!",
+                    "Is it Hiromi Abara?",
+                    "Am I right, come on you I am~"
+                };
                 break;
             case 1:
                 ShowExpression("smile");
-                textToSpeak = "Maybe there's something near the tree.";
+                choiceLines = new string[]
+                {
+                    "Come on dude, everyone has a crush on someone!",
+                    "Let me guess, you do have a crush on someone… But you’re too shy to admit it.",
+                    "Ha! That’s the one."
+                };
                 break;
             case 2:
-                ShowExpression("neutral");
-                textToSpeak = "Nope, nothing here.";
-                break;
-            case 3:
                 ShowExpression("smirk");
-                textToSpeak = "Maybe the house is worth checking.";
+                choiceLines = new string[]
+                {
+                    "Eh?! Me?!",
+                    "[laughs nervously]",
+                    "You’re joking, right?",
+                    "Unless, you’re swinging that way."
+                };
                 break;
         }
-
-        charName.GetComponent<TMPro.TMP_Text>().text = "Kasumi";
-        textBox.GetComponent<TMPro.TMP_Text>().text = textToSpeak;
-        currentTextLength = textToSpeak.Length;
-        TextCreator.runTextPrint = true;
-
-        yield return new WaitForSeconds(0.05f);
-        yield return new WaitForSeconds(1f);
-        yield return new WaitUntil(() => textLength >= currentTextLength);
-        yield return new WaitForSeconds(0.5f);
-        nextButton.SetActive(true);
+        eventPos = 1; // Set event state to choice dialogue
+        currentLine = 0;
+        StartCoroutine(DisplayChoiceLine(currentLine));
     }
 
-    IEnumerator PlaySearchLine(int index)
+    IEnumerator DisplayChoiceLine(int lineIndex)
     {
         nextButton.SetActive(false);
-
-        switch (index)
+        isTyping = true;
+        if (lineIndex >= 0 && lineIndex < choiceLines.Length)
         {
-            case 0:
-                ShowExpression("neutral");
-                charName.GetComponent<TMPro.TMP_Text>().text = "Kasumi";
-                textToSpeak = "Let's start looking around.";
-                break;
-            case 1:
-                ShowExpression("smile");
-                charName.GetComponent<TMPro.TMP_Text>().text = "Kasumi";
-                textToSpeak = "Maybe there's something near the tree.";
-                break;
-            case 2:
-                ShowExpression("neutral");
-                charName.GetComponent<TMPro.TMP_Text>().text = "Kasumi";
-                textToSpeak = "Nope, nothing here.";
-                break;
-            case 3:
-                ShowExpression("smirk");
-                charName.GetComponent<TMPro.TMP_Text>().text = "Kasumi";
-                textToSpeak = "Maybe the house is worth checking.";
-                break;
+            textToSpeak = choiceLines[lineIndex];
+            charName.GetComponent<TMP_Text>().text = "Koda";
+            textBox.GetComponent<TMP_Text>().text = textToSpeak;
+            currentTextLength = textToSpeak.Length;
+            TextCreator.runTextPrint = true;
+
+            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(1f);
+            yield return new WaitUntil(() => textLength >= currentTextLength);
+            yield return new WaitForSeconds(0.5f);
+            nextButton.SetActive(true);
+        }
+        isTyping = false;
+    }
+
+    // NextButton to be called by Unity UI OnClick
+    public void NextButton()
+    {
+        if (isTyping) return; // Don’t skip the typing animation
+
+        if (eventPos == 0)
+        {
+            introIndex++;
+            if (introIndex <= 5)
+            {
+                StartCoroutine(PlayIntroLine(introIndex));
+            }
+            else
+            {
+                eventPos = 1;
+                ShowChoiceButtons();
+            }
+            return;
         }
 
-        textBox.GetComponent<TMPro.TMP_Text>().text = textToSpeak;
-        currentTextLength = textToSpeak.Length;
-        TextCreator.runTextPrint = true;
-
-        yield return new WaitForSeconds(0.05f);
-        yield return new WaitForSeconds(1f);
-        yield return new WaitUntil(() => textLength >= currentTextLength);
-        yield return new WaitForSeconds(0.5f);
-        nextButton.SetActive(true);
+        // Handle choice-dialogue lines
+        if (eventPos == 1)
+        {
+            if (currentLine < choiceLines.Length - 1)
+            {
+                currentLine++;
+                StartCoroutine(DisplayChoiceLine(currentLine));
+            }
+            else
+            {
+                // Last line reached → proceed to EventFour
+                eventPos = 4;
+                nextButton.SetActive(false);
+                StartCoroutine(EventFour());
+            }
+        }
     }
 
     IEnumerator EventFour()
@@ -172,101 +278,5 @@ public class Scene02Event : MonoBehaviour
         fadeOut.SetActive(true);
         yield return new WaitForSeconds(4f);
         SceneManager.LoadScene(3);
-    }
-
-    public void TreeInteract()
-    {
-        StartCoroutine(TreeInteractSeq());
-    }
-
-    public void BuildingInteract()
-    {
-        StartCoroutine(BuildingInteractSeq());
-    }
-
-    IEnumerator TreeInteractSeq()
-    {
-        treeInteract.SetActive(false);
-        houseInteract.SetActive(false);
-
-        ShowExpression("neutral");
-        yield return new WaitForSeconds(1f);
-
-        mainTextObject.SetActive(true);
-        charName.GetComponent<TMPro.TMP_Text>().text = "Kasumi";
-        textToSpeak = "Nope, nothing behind the tree.";
-        textBox.GetComponent<TMPro.TMP_Text>().text = textToSpeak;
-        currentTextLength = textToSpeak.Length;
-        TextCreator.runTextPrint = true;
-
-        yield return new WaitForSeconds(0.05f);
-        yield return new WaitForSeconds(1f);
-        yield return new WaitUntil(() => textLength >= currentTextLength);
-        yield return new WaitForSeconds(0.5f);
-
-        houseInteract.SetActive(true);
-    }
-
-    IEnumerator BuildingInteractSeq()
-    {
-        treeInteract.SetActive(false);
-        houseInteract.SetActive(false);
-
-        ShowExpression("smile");
-        yield return new WaitForSeconds(0.5f);
-
-        mainTextObject.SetActive(true);
-        charName.GetComponent<TMPro.TMP_Text>().text = "Kasumi";
-        textToSpeak = "Oh, you found me. Lets all go somewhere else.";
-        textBox.GetComponent<TMPro.TMP_Text>().text = textToSpeak;
-        currentTextLength = textToSpeak.Length;
-        TextCreator.runTextPrint = true;
-
-        yield return new WaitForSeconds(0.05f);
-        yield return new WaitForSeconds(1f);
-        yield return new WaitUntil(() => textLength >= currentTextLength);
-        yield return new WaitForSeconds(0.5f);
-
-        eventPos = 4;
-        StartCoroutine(EventFour());
-    }
-
-    public void NextButton()
-    {
-        if (eventPos == 0)
-        {
-            introIndex++;
-            if (introIndex <= 3)
-            {
-                StartCoroutine(PlayIntroLine(introIndex));
-            }
-            else
-            {
-                eventPos = 1;
-                searchIndex = 0;
-                StartCoroutine(PlaySearchLine(searchIndex));
-            }
-            return;
-        }
-
-        if (eventPos == 1)
-        {
-            searchIndex++;
-            if (searchIndex <= 3)
-            {
-                StartCoroutine(PlaySearchLine(searchIndex));
-            }
-            else
-            {
-                eventPos = 4;
-                StartCoroutine(EventFour());
-            }
-            return;
-        }
-
-        if (eventPos == 4)
-        {
-            StartCoroutine(EventFour());
-        }
     }
 }
