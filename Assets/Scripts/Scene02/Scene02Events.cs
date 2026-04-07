@@ -11,6 +11,9 @@ public class Scene02Event : MonoBehaviour
     [SerializeField] private AudioSource bgm;
     [SerializeField] private AudioSource studentChatter;
 
+    [Header("SFX")]
+    [SerializeField] private AudioSource phonering;
+
     [Header("Character Expressions")]
     public GameObject charNeutral;
     public GameObject charSurprised;
@@ -260,7 +263,7 @@ public class Scene02Event : MonoBehaviour
                     "Eh?! Me?!",
                     "[laughs nervously]",
                     "You’re joking, right?",
-                    "Unless, you’re swinging that way."
+                    "Unless, you’re..."
                 };
                 break;
         }
@@ -299,14 +302,21 @@ public class Scene02Event : MonoBehaviour
         if (lineIndex >= 0 && lineIndex < transitionLines.Length)
         {
             textToSpeak = transitionLines[lineIndex];
-            bool narrationLine = textToSpeak.StartsWith("[");
-            charName.GetComponent<TMP_Text>().text = narrationLine ? "" : "Koda";
+            // --- Always show "Koda" as per your new requirement ---
+            charName.GetComponent<TMP_Text>().text = "Koda";
 
             textBox.SetActive(true);
             mainTextObject.SetActive(true);
             textBox.GetComponent<TMP_Text>().text = textToSpeak;
             currentTextLength = textToSpeak.Length;
             TextCreator.runTextPrint = true;
+
+            // Special action: phone beeped and fade BGM
+            if (textToSpeak == "[While you were complaining about the upcoming test, your phone suddenly beeped. You decided to answer]")
+            {
+                StartCoroutine(FadeBGMVolume(bgm, 0.3f, 2f)); // fade bgm to 0.3 over 2s
+                StartCoroutine(PlayPhoneRingTwice());
+            }
 
             yield return new WaitForSeconds(0.05f);
             yield return new WaitForSeconds(1f);
@@ -526,5 +536,32 @@ public class Scene02Event : MonoBehaviour
         fadeOut.SetActive(true);
         yield return new WaitForSeconds(4f);
         SceneManager.LoadScene(3);
+    }
+
+    // ========== NEW HELPERS ==========
+
+    IEnumerator FadeBGMVolume(AudioSource audioSource, float targetVolume, float fadeDuration)
+    {
+        if (audioSource == null) yield break;
+        float startVolume = audioSource.volume;
+        float elapsed = 0f;
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(startVolume, targetVolume, elapsed / fadeDuration);
+            yield return null;
+        }
+        audioSource.volume = targetVolume;
+    }
+
+    IEnumerator PlayPhoneRingTwice()
+    {
+        if (phonering == null) yield break;
+        int times = 2;
+        for (int i = 0; i < times; i++)
+        {
+            phonering.Play();
+            yield return new WaitForSeconds(phonering.clip.length);
+        }
     }
 }
