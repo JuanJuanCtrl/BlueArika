@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &27370944
 RectTransform:
   m_ObjectHideFlags: 0
@@ -501,7 +501,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Koda
+  m_text: Character
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2c7b4d260693ff9498e8e6cd7f744c65, type: 2}
   m_sharedMaterial: {fileID: -7034002205182556623, guid: 2c7b4d260693ff9498e8e6cd7f744c65, type: 2}
@@ -843,7 +843,7 @@ GameObject:
   - component: {fileID: 266536780}
   - component: {fileID: 266536779}
   m_Layer: 5
-  m_Name: KodaSmirk
+  m_Name: CharacterSmirk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -950,7 +950,7 @@ GameObject:
   - component: {fileID: 315433980}
   - component: {fileID: 315433979}
   m_Layer: 5
-  m_Name: KodaNeutral
+  m_Name: CharacterNeutral
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2146,7 +2146,7 @@ GameObject:
   - component: {fileID: 1100656987}
   - component: {fileID: 1100656986}
   m_Layer: 5
-  m_Name: KodaEmbarrassed
+  m_Name: CharacterEmbarrassed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2514,7 +2514,7 @@ GameObject:
   - component: {fileID: 1399365259}
   - component: {fileID: 1399365258}
   m_Layer: 5
-  m_Name: KodaSmile
+  m_Name: CharacterSmile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2586,7 +2586,7 @@ GameObject:
   - component: {fileID: 1452407616}
   - component: {fileID: 1452407615}
   m_Layer: 5
-  m_Name: KodaSurprised
+  m_Name: CharacterSurprised
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3076,7 +3076,7 @@ GameObject:
   - component: {fileID: 1934737519}
   - component: {fileID: 1934737518}
   m_Layer: 5
-  m_Name: KodaBase
+  m_Name: CharacterBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

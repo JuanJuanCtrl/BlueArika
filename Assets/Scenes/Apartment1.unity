@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &27370944
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1462,11 +1462,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 2d23036f9171ccc43a334453a35d8242, type: 3}
-  m_PlayOnAwake: 0
+  m_Resource: {fileID: 8300000, guid: 0394401736c19734a966562d1182d5ac, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 0.46
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1559,7 +1559,7 @@ GameObject:
   - component: {fileID: 708339730}
   - component: {fileID: 708339731}
   m_Layer: 0
-  m_Name: StudentChatter
+  m_Name: NightAmbience
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1591,11 +1591,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: f76158f33f44e304e8eec0fe0aa7d2ac, type: 3}
-  m_PlayOnAwake: 0
+  m_Resource: {fileID: 8300000, guid: 5d2f101204a30a9408efa20c06c2c1fd, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 0.043
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1910,7 +1910,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1065850823}
-  - component: {fileID: 1065850822}
+  - component: {fileID: 1065850824}
   m_Layer: 0
   m_Name: SceneControl
   m_TagString: Untagged
@@ -1918,39 +1918,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1065850822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1065850821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac213767e1f40d94bae8e174bac72c4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Scene03Event
-  bgm: {fileID: 639774811}
-  studentChatter: {fileID: 708339731}
-  phonering: {fileID: 1509537659}
-  charNeutral: {fileID: 0}
-  charSurprised: {fileID: 0}
-  charSmirk: {fileID: 0}
-  charSmile: {fileID: 0}
-  charEmbarrassed: {fileID: 0}
-  fadeScreenIn: {fileID: 27370943}
-  textBox: {fileID: 762409464}
-  textToSpeak: 
-  currentTextLength: 0
-  textLength: 0
-  mainTextObject: {fileID: 108873762}
-  nextButton: {fileID: 2064700602}
-  eventPos: 0
-  charName: {fileID: 184391839}
-  fadeOut: {fileID: 1535045723}
-  choiceButton1: {fileID: 161420256}
-  choiceButton2: {fileID: 224867931}
-  choiceButton3: {fileID: 1622950212}
 --- !u!4 &1065850823
 Transform:
   m_ObjectHideFlags: 0
@@ -1966,6 +1933,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1065850824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065850821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43ad98a070430c442acc1b6780bcf48e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Scene03Event
+  fadeScreenIn: {fileID: 27370943}
+  textBox: {fileID: 762409464}
+  speakerName: You
+  textToSpeak: 
+  currentTextLength: 0
+  textLength: 0
+  mainTextObject: {fileID: 108873762}
+  nextButton: {fileID: 2064700602}
+  eventPos: 0
+  charName: {fileID: 184391839}
+  fadeOut: {fileID: 1535045723}
 --- !u!1 &1250707160
 GameObject:
   m_ObjectHideFlags: 0
@@ -2987,8 +2977,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1065850822}
-        m_TargetAssemblyTypeName: Scene02Event, Assembly-CSharp
+      - m_Target: {fileID: 1065850824}
+        m_TargetAssemblyTypeName: Scene03Event, Assembly-CSharp
         m_MethodName: NextButton
         m_Mode: 1
         m_Arguments:
