@@ -237,7 +237,7 @@ public class Scene02Event : MonoBehaviour
         switch (choice)
         {
             case 0:
-                ShowExpression("surprised");
+                ShowExpression("smirk");
                 choiceLines = new string[]
                 {
                     "Oooh, so you got your eyes on someone already?",
@@ -248,7 +248,7 @@ public class Scene02Event : MonoBehaviour
                 };
                 break;
             case 1:
-                ShowExpression("smile");
+                ShowExpression("smirk");
                 choiceLines = new string[]
                 {
                     "Come on dude, everyone has a crush on someone!",
@@ -260,10 +260,10 @@ public class Scene02Event : MonoBehaviour
                 ShowExpression("embarrassed");
                 choiceLines = new string[]
                 {
-                    "Eh?! Me?!",
+                    "Eh, me?! I'm not a girl!",
                     "[laughs nervously]",
                     "You’re joking, right?",
-                    "Unless, you’re..."
+                    "Yeah, just playful banter..."
                 };
                 break;
         }
