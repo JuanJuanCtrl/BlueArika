@@ -1,13 +1,21 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Scene04Event : MonoBehaviour
 {
+    [Header("Character Expressions")]
+    public GameObject charMidnightHappy;
+    public GameObject charMidnightEmbarrassed;
+    public GameObject charMidnightDelighted;
+    public GameObject charMidnightConfused;
+    public GameObject charMidnightAngry;
+
     public GameObject fadeScreenIn;
     public GameObject textBox;
-    [SerializeField] private string speakerName = "You";
 
+    [SerializeField] private string speakerName = "Midnight";
     [SerializeField] string textToSpeak;
     [SerializeField] int currentTextLength;
     [SerializeField] int textLength;
@@ -29,15 +37,124 @@ public class Scene04Event : MonoBehaviour
         StartCoroutine(EventStarter());
     }
 
+    void HideAllExpressions()
+    {
+        charMidnightHappy.SetActive(false);
+        charMidnightEmbarrassed.SetActive(false);
+        charMidnightDelighted.SetActive(false);
+        charMidnightConfused.SetActive(false);
+        charMidnightAngry.SetActive(false);
+    }
+
+    void ShowExpression(string expression)
+    {
+        HideAllExpressions();
+
+        switch (expression)
+        {
+            case "happy":
+                charMidnightHappy.SetActive(true);
+                break;
+            case "embarrassed":
+                charMidnightEmbarrassed.SetActive(true);
+                break;
+            case "delighted":
+                charMidnightDelighted.SetActive(true);
+                break;
+            case "confused":
+                charMidnightConfused.SetActive(true);
+                break;
+            case "angry":
+                charMidnightAngry.SetActive(true);
+                break;
+        }
+    }
+
+    void SetExpressionAlpha(GameObject expressionObject, float alpha)
+    {
+        if (expressionObject == null)
+        {
+            return;
+        }
+
+        CanvasGroup[] canvasGroups = expressionObject.GetComponentsInChildren<CanvasGroup>(true);
+        foreach (CanvasGroup canvasGroup in canvasGroups)
+        {
+            canvasGroup.alpha = alpha;
+        }
+
+        Graphic[] graphics = expressionObject.GetComponentsInChildren<Graphic>(true);
+        foreach (Graphic graphic in graphics)
+        {
+            Color color = graphic.color;
+            color.a = alpha;
+            graphic.color = color;
+        }
+
+        SpriteRenderer[] spriteRenderers = expressionObject.GetComponentsInChildren<SpriteRenderer>(true);
+        foreach (SpriteRenderer spriteRenderer in spriteRenderers)
+        {
+            Color color = spriteRenderer.color;
+            color.a = alpha;
+            spriteRenderer.color = color;
+        }
+    }
+
+    IEnumerator FadeInExpression(string expression)
+    {
+        GameObject target = null;
+
+        switch (expression)
+        {
+            case "happy":
+                target = charMidnightHappy;
+                break;
+            case "embarrassed":
+                target = charMidnightEmbarrassed;
+                break;
+            case "delighted":
+                target = charMidnightDelighted;
+                break;
+            case "confused":
+                target = charMidnightConfused;
+                break;
+            case "angry":
+                target = charMidnightAngry;
+                break;
+        }
+
+        if (target == null)
+        {
+            yield break;
+        }
+
+        HideAllExpressions();
+        target.SetActive(true);
+        SetExpressionAlpha(target, 0f);
+
+        float duration = 1f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Clamp01(elapsed / duration);
+            SetExpressionAlpha(target, alpha);
+            yield return null;
+        }
+
+        SetExpressionAlpha(target, 1f);
+    }
+
     IEnumerator EventStarter()
     {
         yield return new WaitForSeconds(2f);
         fadeScreenIn.SetActive(false);
+        HideAllExpressions();
         yield return new WaitForSeconds(2f);
 
         mainTextObject.SetActive(true);
         textBox.SetActive(true);
-        charName.GetComponent<TMPro.TMP_Text>().text = speakerName;
 
         introIndex = 0;
         yield return StartCoroutine(PlayLine(introIndex));
@@ -52,25 +169,136 @@ public class Scene04Event : MonoBehaviour
         switch (index)
         {
             case 0:
-                textToSpeak = "[You arrived to your apartment after hanging out with Koda]";
+                speakerName = "You";
+                textToSpeak = "[You woke up in the middle of the night.]";
                 break;
             case 1:
-                textToSpeak = "[He quickly scurried back home, as it had gotten pretty late]";
+                speakerName = "You";
+                textToSpeak = "[There is a heavy atmosphere in your bedroom.]";
                 break;
             case 2:
-                textToSpeak = "[Your mind drifted back to that mysterious call…]";
+                speakerName = "You";
+                textToSpeak = "[Your phone's screen was on.]";
                 break;
             case 3:
-                textToSpeak = "[Who was that person who called you? How did they find your number?]";
+                speakerName = "You";
+                textToSpeak = "[A mysterious app called Midnight was open, with a black cat icon.]";
                 break;
             case 4:
-                textToSpeak = "[Your mind was clouded with unanswered questions]";
+                speakerName = "You";
+                textToSpeak = "[You do not recall installing that app.]";
                 break;
             case 5:
-                textToSpeak = "[You decided to shrug it off for the time being.]";
+                speakerName = "You";
+                textToSpeak = "[So you deleted it from your phone.]";
                 break;
             case 6:
-                textToSpeak = "[What an odd first day of school…]";
+                speakerName = "You";
+                textToSpeak = "[The app was not deleted, and it opened on its own.]";
+                break;
+            case 7:
+                speakerName = "You";
+                textToSpeak = "[There was a white feline face on your screen, but...]";
+                break;
+            case 8:
+                speakerName = "Unknown";
+                StartCoroutine(FadeInExpression("happy"));
+                textToSpeak = "H-hello?";
+                break;
+            case 9:
+                speakerName = "Unknown";
+                ShowExpression("delighted");
+                textToSpeak = "Thank God! I was able to find a connection!";
+                break;
+            case 10:
+                speakerName = "Unknown";
+                ShowExpression("delighted");
+                textToSpeak = "You must be that person I was looking for...";
+                break;
+            case 11:
+                speakerName = "Unknown";
+                ShowExpression("confused");
+                textToSpeak = "Asa, ain't it?";
+                break;
+            case 12:
+                speakerName = "You";
+                ShowExpression("confused");
+                textToSpeak = "[You don't know whoever is talking to you, but the person on the other side seems to know you.]";
+                break;
+            case 13:
+                speakerName = "Midnight";
+                ShowExpression("happy");
+                textToSpeak = "The name's Midnight, I live inside your phone. That's how I know your name!";
+                break;
+            case 14:
+                speakerName = "Midnight";
+                ShowExpression("happy");
+                textToSpeak = "Make sure to keep it charged!";
+                break;
+            case 15:
+                speakerName = "Midnight";
+                ShowExpression("happy");
+                textToSpeak = "Anyways, you wouldn't mind if I used your time for a bit?";
+                break;
+            case 16:
+                speakerName = "You";
+                ShowExpression("confused");
+                textToSpeak = "[He seems to have given you a choice, but you cannot escape it. You feel like you have to agree no matter how he puts it.]";
+                break;
+            case 17:
+                speakerName = "Midnight";
+                ShowExpression("delighted");
+                textToSpeak = "Great! Now, how do I say this...";
+                break;
+            case 18:
+                speakerName = "Midnight";
+                ShowExpression("delighted");
+                textToSpeak = "You see, I've made a grand discovery that'll sure shake this world of yours.";
+                break;
+            case 19:
+                speakerName = "Midnight";
+                ShowExpression("confused");
+                textToSpeak = "Haven't you noticed some of the people outside acting weird?";
+                break;
+            case 20:
+                speakerName = "Midnight";
+                ShowExpression("confused");
+                textToSpeak = "They even sound weird, I can't make this up!";
+                break;
+            case 21:
+                speakerName = "You";
+                ShowExpression("confused");
+                textToSpeak = "[You felt the desperate tone in his boyish, slightly raspy voice. You feel rather confused.]";
+                break;
+            case 22:
+                speakerName = "Midnight";
+                ShowExpression("delighted");
+                textToSpeak = "I... can't prove it yet, but I'm willing to investigate further!";
+                break;
+            case 23:
+                speakerName = "Midnight";
+                ShowExpression("delighted");
+                textToSpeak = "If you could take me on regular walks, I'll collect enough information to back my evidence up!";
+                break;
+            case 24:
+                speakerName = "Midnight";
+                ShowExpression("confused");
+                textToSpeak = "Although I hope it isn't weird taking your phone on a walk, right?";
+                break;
+            case 25:
+                speakerName = "Midnight";
+                ShowExpression("embarrassed");
+                textToSpeak = "Um, I also need help with something, but I guess I don't wanna keep you awake all night.";
+                break;
+            case 26:
+                speakerName = "Midnight";
+                ShowExpression("happy");
+                textToSpeak = "Let's leave that for tomorrow. Nighty-night, Asa!";
+                break;
+            case 27:
+                speakerName = "You";
+                ShowExpression("confused");
+                textToSpeak = "[With that, your phone's screen went black and the app closed, leaving you on the homescreen. You put your phone away and went back to sleep, the atmosphere felt lighter.]";
                 break;
         }
 
@@ -103,7 +331,7 @@ public class Scene04Event : MonoBehaviour
         if (eventPos == 0)
         {
             introIndex++;
-            if (introIndex <= 6)
+            if (introIndex <= 27)
             {
                 StartCoroutine(PlayLine(introIndex));
             }
