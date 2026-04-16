@@ -2557,7 +2557,6 @@ GameObject:
   - component: {fileID: 1567452980}
   - component: {fileID: 1567452983}
   - component: {fileID: 1567452982}
-  - component: {fileID: 1567452981}
   m_Layer: 5
   m_Name: CharacterConfused
   m_TagString: Untagged
@@ -2584,28 +2583,6 @@ RectTransform:
   m_AnchoredPosition: {x: -379.99994, y: 489.00006}
   m_SizeDelta: {x: 490, y: 860.9695}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &1567452981
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1567452979}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 679a25e0058d3874481da8211d0e6c37, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1567452982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3432,7 +3409,6 @@ GameObject:
   - component: {fileID: 2126314757}
   - component: {fileID: 2126314760}
   - component: {fileID: 2126314759}
-  - component: {fileID: 2126314758}
   m_Layer: 5
   m_Name: CharacterEmbarrassed
   m_TagString: Untagged
@@ -3459,28 +3435,6 @@ RectTransform:
   m_AnchoredPosition: {x: -379.99994, y: 489.00006}
   m_SizeDelta: {x: 490, y: 860.9695}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &2126314758
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2126314756}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 679a25e0058d3874481da8211d0e6c37, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &2126314759
 MonoBehaviour:
   m_ObjectHideFlags: 0
