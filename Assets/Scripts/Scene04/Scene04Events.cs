@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class Scene04Event : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class Scene04Event : MonoBehaviour
     [SerializeField] GameObject fadeOut;
 
     int introIndex = 0;
+    bool isFadingOut = false;
 
     void Update()
     {
@@ -144,6 +146,44 @@ public class Scene04Event : MonoBehaviour
         }
 
         SetExpressionAlpha(target, 1f);
+    }
+
+    IEnumerator FadeOutAllExpressions(float duration = 1f)
+    {
+        GameObject[] expressions = {
+            charMidnightHappy,
+            charMidnightEmbarrassed,
+            charMidnightDelighted,
+            charMidnightConfused,
+            charMidnightAngry
+        };
+
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Clamp01(1f - (elapsed / duration));
+
+            for (int i = 0; i < expressions.Length; i++)
+            {
+                if (expressions[i] != null && expressions[i].activeSelf)
+                {
+                    SetExpressionAlpha(expressions[i], alpha);
+                }
+            }
+
+            yield return null;
+        }
+
+        for (int i = 0; i < expressions.Length; i++)
+        {
+            if (expressions[i] != null)
+            {
+                SetExpressionAlpha(expressions[i], 0f);
+                expressions[i].SetActive(false);
+            }
+        }
     }
 
     IEnumerator EventStarter()
@@ -297,8 +337,9 @@ public class Scene04Event : MonoBehaviour
                 break;
             case 27:
                 speakerName = "You";
-                ShowExpression("confused");
+                ShowExpression("happy");
                 textToSpeak = "[With that, your phone's screen went black and the app closed, leaving you on the homescreen. You put your phone away and went back to sleep, the atmosphere felt lighter.]";
+                StartCoroutine(FadeOutAllExpressions(1.5f));
                 break;
         }
 
@@ -328,6 +369,11 @@ public class Scene04Event : MonoBehaviour
 
     public void NextButton()
     {
+        if (isFadingOut)
+        {
+            return;
+        }
+
         if (eventPos == 0)
         {
             introIndex++;
@@ -338,6 +384,7 @@ public class Scene04Event : MonoBehaviour
             else
             {
                 eventPos = 4;
+                isFadingOut = true;
                 StartCoroutine(EventFour());
             }
             return;

@@ -535,7 +535,7 @@ public class Scene02Event : MonoBehaviour
         textBox.SetActive(true);
         fadeOut.SetActive(true);
         yield return new WaitForSeconds(4f);
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(6);
     }
 
     // ========== NEW HELPERS ==========
