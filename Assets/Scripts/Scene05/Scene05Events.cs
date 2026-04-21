@@ -11,9 +11,6 @@ public class Scene05Event : MonoBehaviour
     [SerializeField] private AudioSource bgm;
     [SerializeField] private AudioSource studentChatter;
 
-    [Header("SFX")]
-    [SerializeField] private AudioSource phonering;
-
     [Header("Character Expressions")]
     public GameObject charNeutral;
     public GameObject charSurprised;
@@ -54,36 +51,11 @@ public class Scene05Event : MonoBehaviour
     };
     private int transitionLineIndex = 0;
 
-    private string[] phoneCallLines =
-    {
-        "H- hel-llo?",
-        "An-anyo--ne lis-t-tening!?",
-        "P-le-ase, som-eo-ne!",
-        "H-e--lp!"
-    };
-    private int phoneCallLineIndex = 0;
-
-    private string[] phoneDisconnectLines =
-    {
-        "[The call was suddenly disconnected. You shoved your phone back in your pocket]"
-    };
-    private int phoneDisconnectLineIndex = 0;
-
-    private string[] kodaConcernLines =
-    {
-        "Uhh, everything good bro?",
-        "We can always hang out later if you want…"
-    };
-    private int kodaConcernLineIndex = 0;
-
-    private string[] finalNarrationLines =
-    {
-        "[You felt Koda’s concern. Was it just a prank call, or something deeper? Whatever it is, you decided to hang out with Koda without telling him what happened. You walked home with him afterwards]"
-    };
-    private int finalNarrationLineIndex = 0;
-
     int introIndex = 0;
     bool isTyping = false; // Prevents spamming Next
+
+    // State flag for end-of-scene transition
+    private bool awaitingFinalContinue = false;
 
     void Update()
     {
@@ -179,7 +151,7 @@ public class Scene05Event : MonoBehaviour
                 break;
             case 5:
                 ShowExpression("smirk");
-                textToSpeak = "How should you approach this?";
+                textToSpeak = "[How should you approach this?]";
                 break;
         }
         charName.GetComponent<TMP_Text>().text = "Koda";
@@ -244,18 +216,18 @@ public class Scene05Event : MonoBehaviour
                 {
                     "[You reminded him what happened yesterday, and what happened to you at night.]",
                     "A talking cat inside of your phone? Dude, is the phone possessed or something?",
-                    "I mean, it’s not like I haven’t heard of that kind of stuff before, but still…",
-                    "Maybe you were just seeing things, I mean everyone sees stuff once in a while, right? It’s probably just your imagination running wild.",
+                    "I mean, it's not like I haven't heard of that kind of stuff before, but still...",
+                    "Maybe you were just seeing things, I mean everyone sees stuff once in a while, right? It's probably just your imagination running wild.",
                     "That must be it [laughs nerviously]"
                 };
                 break;
             case 1:
-                ShowExpression("smirk");
+                ShowExpression("embarrassed");
                 choiceLines = new string[]
                 {
                     "[You told him what happened to you last night.]",
                     "A talking cat, inside of your phone? That sounds like a dream, sure you weren't dreaming bro?",
-                    "Sounds like you were just seeing things, I mean everyone sees stuff once in a while, right? It’s probably just your imagination running wild.",
+                    "Sounds like you were just seeing things, I mean everyone sees stuff once in a while, right? It's probably just your imagination running wild.",
                 };
                 break;
             case 2:
@@ -304,7 +276,6 @@ public class Scene05Event : MonoBehaviour
         if (lineIndex >= 0 && lineIndex < transitionLines.Length)
         {
             textToSpeak = transitionLines[lineIndex];
-            // --- Always show "Koda" as per your new requirement ---
             charName.GetComponent<TMP_Text>().text = "Koda";
 
             textBox.SetActive(true);
@@ -313,118 +284,39 @@ public class Scene05Event : MonoBehaviour
             currentTextLength = textToSpeak.Length;
             TextCreator.runTextPrint = true;
 
-            // Special action: phone beeped and fade BGM
-            if (textToSpeak == "[While you were complaining about the upcoming test, your phone suddenly beeped. You decided to answer]")
+            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(1f);
+            yield return new WaitUntil(() => textLength >= currentTextLength);
+            yield return new WaitForSeconds(0.5f);
+
+            bool isFinalTransitionLine = lineIndex == transitionLines.Length - 1;
+            if (isFinalTransitionLine)
             {
-                StartCoroutine(FadeBGMVolume(bgm, 0.3f, 2f)); // fade bgm to 0.3 over 2s
-                StartCoroutine(PlayPhoneRingTwice());
+                // Instead of starting EventFour here, prompt with the next button
+                awaitingFinalContinue = true;   // set flag to wait for final Next press
+                nextButton.SetActive(true);     // allow user to continue
+                isTyping = false;
+                yield break;
             }
 
-            yield return new WaitForSeconds(0.05f);
-            yield return new WaitForSeconds(1f);
-            yield return new WaitUntil(() => textLength >= currentTextLength);
-            yield return new WaitForSeconds(0.5f);
             nextButton.SetActive(true);
         }
-        isTyping = false;
-    }
-
-    IEnumerator DisplayPhoneCallLine(int lineIndex)
-    {
-        nextButton.SetActive(false);
-        isTyping = true;
-        ShowExpression("embarrassed"); // Optional: show a distressed/embarrassed face for "Unknown"
-        if (lineIndex >= 0 && lineIndex < phoneCallLines.Length)
-        {
-            textToSpeak = phoneCallLines[lineIndex];
-            charName.GetComponent<TMP_Text>().text = "Unknown";
-            textBox.SetActive(true);
-            mainTextObject.SetActive(true);
-            textBox.GetComponent<TMP_Text>().text = textToSpeak;
-            currentTextLength = textToSpeak.Length;
-            TextCreator.runTextPrint = true;
-
-            yield return new WaitForSeconds(0.05f);
-            yield return new WaitForSeconds(1f);
-            yield return new WaitUntil(() => textLength >= currentTextLength);
-            yield return new WaitForSeconds(0.5f);
-            nextButton.SetActive(true);
-        }
-        isTyping = false;
-    }
-
-    IEnumerator DisplayPhoneDisconnectLine()
-    {
-        nextButton.SetActive(false);
-        isTyping = true;
-        ShowExpression("neutral");
-        textToSpeak = phoneDisconnectLines[0];
-        charName.GetComponent<TMP_Text>().text = "";
-        textBox.SetActive(true);
-        mainTextObject.SetActive(true);
-        textBox.GetComponent<TMP_Text>().text = textToSpeak;
-        currentTextLength = textToSpeak.Length;
-        TextCreator.runTextPrint = true;
-
-        yield return new WaitForSeconds(0.05f);
-        yield return new WaitForSeconds(1f);
-        yield return new WaitUntil(() => textLength >= currentTextLength);
-        yield return new WaitForSeconds(0.5f);
-        nextButton.SetActive(true);
-
-        isTyping = false;
-    }
-
-    IEnumerator DisplayKodaConcernLine(int lineIndex)
-    {
-        nextButton.SetActive(false);
-        isTyping = true;
-        ShowExpression("smile");
-        if (lineIndex >= 0 && lineIndex < kodaConcernLines.Length)
-        {
-            textToSpeak = kodaConcernLines[lineIndex];
-            charName.GetComponent<TMP_Text>().text = "Koda";
-            textBox.SetActive(true);
-            mainTextObject.SetActive(true);
-            textBox.GetComponent<TMP_Text>().text = textToSpeak;
-            currentTextLength = textToSpeak.Length;
-            TextCreator.runTextPrint = true;
-
-            yield return new WaitForSeconds(0.05f);
-            yield return new WaitForSeconds(1f);
-            yield return new WaitUntil(() => textLength >= currentTextLength);
-            yield return new WaitForSeconds(0.5f);
-            nextButton.SetActive(true);
-        }
-        isTyping = false;
-    }
-
-    IEnumerator DisplayFinalNarrationLine()
-    {
-        nextButton.SetActive(false);
-        isTyping = true;
-        ShowExpression("neutral");
-        textToSpeak = finalNarrationLines[0];
-        charName.GetComponent<TMP_Text>().text = "";
-        textBox.SetActive(true);
-        mainTextObject.SetActive(true);
-        textBox.GetComponent<TMP_Text>().text = textToSpeak;
-        currentTextLength = textToSpeak.Length;
-        TextCreator.runTextPrint = true;
-
-        yield return new WaitForSeconds(0.05f);
-        yield return new WaitForSeconds(1f);
-        yield return new WaitUntil(() => textLength >= currentTextLength);
-        yield return new WaitForSeconds(0.5f);
-        nextButton.SetActive(true);
-
         isTyping = false;
     }
 
     // NextButton to be called by Unity UI OnClick
     public void NextButton()
     {
-        if (isTyping) return; // Don’t skip the typing animation
+        if (isTyping) return; // Don't skip the typing animation
+
+        // Awaiting user input after the last line before ending scene
+        if (awaitingFinalContinue)
+        {
+            awaitingFinalContinue = false;
+            nextButton.SetActive(false);
+            StartCoroutine(EventFour());
+            return;
+        }
 
         if (eventPos == 0)
         {
@@ -458,7 +350,6 @@ public class Scene05Event : MonoBehaviour
             return;
         }
 
-        // Handle transition message lines ("Koda monologue + phone rings")
         if (eventPos == 2)
         {
             transitionLineIndex++;
@@ -466,66 +357,7 @@ public class Scene05Event : MonoBehaviour
             {
                 StartCoroutine(DisplayTransitionLine(transitionLineIndex));
             }
-            else
-            {
-                eventPos = 3;
-                nextButton.SetActive(false);
-                phoneCallLineIndex = 0;
-                StartCoroutine(DisplayPhoneCallLine(phoneCallLineIndex));
-            }
-            return;
-        }
-
-        // Handle "Unknown" phone call lines
-        if (eventPos == 3)
-        {
-            phoneCallLineIndex++;
-            if (phoneCallLineIndex < phoneCallLines.Length)
-            {
-                StartCoroutine(DisplayPhoneCallLine(phoneCallLineIndex));
-            }
-            else
-            {
-                eventPos = 4;
-                nextButton.SetActive(false);
-                StartCoroutine(DisplayPhoneDisconnectLine());
-            }
-            return;
-        }
-
-        // Handle disconnected narration
-        if (eventPos == 4)
-        {
-            eventPos = 5;
-            nextButton.SetActive(false);
-            kodaConcernLineIndex = 0;
-            StartCoroutine(DisplayKodaConcernLine(kodaConcernLineIndex));
-            return;
-        }
-
-        // Koda's post-call concern lines
-        if (eventPos == 5)
-        {
-            kodaConcernLineIndex++;
-            if (kodaConcernLineIndex < kodaConcernLines.Length)
-            {
-                StartCoroutine(DisplayKodaConcernLine(kodaConcernLineIndex));
-            }
-            else
-            {
-                eventPos = 6;
-                nextButton.SetActive(false);
-                StartCoroutine(DisplayFinalNarrationLine());
-            }
-            return;
-        }
-
-        // Final narration, then fade out and change scene
-        if (eventPos == 6)
-        {
-            eventPos = 7;
-            nextButton.SetActive(false);
-            StartCoroutine(EventFour());
+            // else will hang here, until awaitingFinalContinue above is hit
             return;
         }
     }
@@ -537,33 +369,6 @@ public class Scene05Event : MonoBehaviour
         textBox.SetActive(true);
         fadeOut.SetActive(true);
         yield return new WaitForSeconds(4f);
-        SceneManager.LoadScene(6);
-    }
-
-    // ========== NEW HELPERS ==========
-
-    IEnumerator FadeBGMVolume(AudioSource audioSource, float targetVolume, float fadeDuration)
-    {
-        if (audioSource == null) yield break;
-        float startVolume = audioSource.volume;
-        float elapsed = 0f;
-        while (elapsed < fadeDuration)
-        {
-            elapsed += Time.deltaTime;
-            audioSource.volume = Mathf.Lerp(startVolume, targetVolume, elapsed / fadeDuration);
-            yield return null;
-        }
-        audioSource.volume = targetVolume;
-    }
-
-    IEnumerator PlayPhoneRingTwice()
-    {
-        if (phonering == null) yield break;
-        int times = 2;
-        for (int i = 0; i < times; i++)
-        {
-            phonering.Play();
-            yield return new WaitForSeconds(phonering.clip.length);
-        }
+        SceneManager.LoadScene(10);
     }
 }
