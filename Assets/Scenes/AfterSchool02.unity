@@ -1274,7 +1274,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Not really...
+  m_text: Smart? me?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2c7b4d260693ff9498e8e6cd7f744c65, type: 2}
   m_sharedMaterial: {fileID: -7034002205182556623, guid: 2c7b4d260693ff9498e8e6cd7f744c65, type: 2}
@@ -2007,7 +2007,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 368, y: -192}
+  m_AnchoredPosition: {x: 239.78, y: -171}
   m_SizeDelta: {x: 479.5604, y: 470.3653}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &781436126
@@ -2030,7 +2030,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: add9e8bcfad5c9f43b50d1701ed571c7, type: 3}
+  m_Texture: {fileID: 2800000, guid: 5fe39388c62e71d4faca92a7f003a3a1, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2054,7 +2054,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1065850823}
-  - component: {fileID: 1065850822}
+  - component: {fileID: 1065850824}
   m_Layer: 0
   m_Name: SceneControl
   m_TagString: Untagged
@@ -2062,7 +2062,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1065850822
+--- !u!4 &1065850823
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065850821}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 526.06805, y: 204.35732, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1065850824
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2071,9 +2086,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1065850821}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac213767e1f40d94bae8e174bac72c4a, type: 3}
+  m_Script: {fileID: 11500000, guid: a5a412adfa295a34791466d20dc9c32c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Scene03Event
+  m_EditorClassIdentifier: Assembly-CSharp::Scene06Event
   bgm: {fileID: 639774811}
   studentChatter: {fileID: 708339731}
   phonering: {fileID: 1509537659}
@@ -2095,21 +2110,6 @@ MonoBehaviour:
   choiceButton1: {fileID: 161420256}
   choiceButton2: {fileID: 224867931}
   choiceButton3: {fileID: 1622950212}
---- !u!4 &1065850823
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1065850821}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 526.06805, y: 204.35732, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1100656984
 GameObject:
   m_ObjectHideFlags: 0
@@ -2376,7 +2376,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: There was this one...
+  m_text: I Am Smart...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2c7b4d260693ff9498e8e6cd7f744c65, type: 2}
   m_sharedMaterial: {fileID: -7034002205182556623, guid: 2c7b4d260693ff9498e8e6cd7f744c65, type: 2}
@@ -3169,7 +3169,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You, of course...
+  m_text: I just copy off others....
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2c7b4d260693ff9498e8e6cd7f744c65, type: 2}
   m_sharedMaterial: {fileID: -7034002205182556623, guid: 2c7b4d260693ff9498e8e6cd7f744c65, type: 2}
@@ -3448,8 +3448,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1065850822}
-        m_TargetAssemblyTypeName: Scene02Event, Assembly-CSharp
+      - m_Target: {fileID: 1065850824}
+        m_TargetAssemblyTypeName: Scene06Event, Assembly-CSharp
         m_MethodName: NextButton
         m_Mode: 1
         m_Arguments:
