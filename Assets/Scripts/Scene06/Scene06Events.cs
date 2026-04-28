@@ -55,28 +55,31 @@ public class Scene06Event : MonoBehaviour
     private string[] phoneCallLines =
     {
         "H- hel-llo?",
-        "An-anyo--ne lis-t-tening!?",
-        "P-le-ase, som-eo-ne!",
-        "H-e--lp!"
+        "As--a, can y-ou h--he-ar me?",
+        "I--I got a m-mess--age for y-ou!",
+        "H-e--lp! H-h-e found m-"
     };
     private int phoneCallLineIndex = 0;
 
     private string[] phoneDisconnectLines =
     {
-        "[The call was suddenly disconnected. You shoved your phone back in your pocket]"
+        "[The call was suddenly disconnected. You looked at your phone for a long time. It was defintely Midnigt, but this time he seemed to be in trouble.]"
     };
     private int phoneDisconnectLineIndex = 0;
 
     private string[] kodaConcernLines =
     {
-        "Uhh, everything good bro?",
-        "We can always hang out later if you want…"
+        "Wow, you got another call bro? Same time and everything, that's strange.",
+        "By the looks on your face, it ain't a prank call.",
+        "[He looks at you as you tell him what had happened]",
+        "You believe that it was the same cat from yesterday, so you weren't lying...",
+        "Can I, come to your place? I wanna see it for myself, you got me real curious!",
     };
     private int kodaConcernLineIndex = 0;
 
     private string[] finalNarrationLines =
     {
-        "[You felt Koda’s concern. Was it just a prank call, or something deeper? Whatever it is, you decided to hang out with Koda without telling him what happened. You walked home with him afterwards]"
+        "[Koda was fully invested in seeing Midnight at night, so he agreed to come to your apartment at night to see the ocurrence.]"
     };
     private int finalNarrationLineIndex = 0;
 
@@ -334,7 +337,7 @@ public class Scene06Event : MonoBehaviour
         if (lineIndex >= 0 && lineIndex < phoneCallLines.Length)
         {
             textToSpeak = phoneCallLines[lineIndex];
-            charName.GetComponent<TMP_Text>().text = "Unknown";
+            charName.GetComponent<TMP_Text>().text = "Midnight";
             textBox.SetActive(true);
             mainTextObject.SetActive(true);
             textBox.GetComponent<TMP_Text>().text = textToSpeak;

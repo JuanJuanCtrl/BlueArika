@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-public class Scene05Event : MonoBehaviour
+public class Scene07Event : MonoBehaviour
 {
     [Header("Audio")]
     [SerializeField] private AudioSource bgm;
