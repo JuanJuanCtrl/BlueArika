@@ -41,13 +41,13 @@ public class Scene07Event : MonoBehaviour
     // --- Dialogue segment arrays and indices ---
     private string[] transitionLines =
     {
-        "Anyways, the train's gonna get to school pretty soon...",
+        "Anyways bro, you said we should wait till midnight for him to appear? I guess that makes sense, since his name is Midnight and all, but still...",
         "[He softly groans]",
-        "There was a weird sound coming from outside my house, it may have just been the wind",
-        "I looked outside the window, and everything was... oddly blue.",
-        "I swear I haven't gone crazy, bro. I'll even snap some pictures to show you later!",
-        "Oh, we're already here. You gonna let me copy off your homework, right?",
-        "[Koda's situation was similar to yours, you couldn't help but feel a bit uneasy about the whole situation. You decided to keep it to yourself for now, not wanting to worry about it.]"
+        "It's 8:00 PM right now, so we have a few hours to kill.",
+        "We don't really have anywhere to go, and I doubt they'd let some high schoolers roam the streets at night.",
+        "They even caught me once trying to sneak into the arcade, that was like a year ago...",
+        "I don't even know why I'm telling you this, but you don't seem to judge. I guess that's why we're friends...",
+        "[You and Koda kept talking for a while, eventually going inside to wait for midnight to come. What could Midnight say tonight...]"
     };
     private int transitionLineIndex = 0;
 
@@ -131,27 +131,27 @@ public class Scene07Event : MonoBehaviour
         {
             case 0:
                 ShowExpression("smile");
-                textToSpeak = "Yo! Good morning bro, you good?";
+                textToSpeak = "Okay, we're here. I'm intrigued to see this cat you called Midnight.";
                 break;
             case 1:
-                ShowExpression("smile");
-                textToSpeak = "You were like, practically dragging me yesterday!";
+                ShowExpression("embarrassed");
+                textToSpeak = "Is it like a cute little kitten, or a big scary cat? Either way I wanna see it!";
                 break;
             case 2:
-                ShowExpression("embarrassed");
-                textToSpeak = "I had to go running home, I hate walking at night...";
+                ShowExpression("neutral");
+                textToSpeak = "I hope it answers my question about what that weird blue fog is...";
                 break;
             case 3:
-                ShowExpression("smirk");
-                textToSpeak = "[Your mind went back to the events that occurred the previous night. What was that all about?]";
+                ShowExpression("neutral");
+                textToSpeak = "[You felt as if your minds were interconnected with the same thoughts and questions.]";
                 break;
             case 4:
-                ShowExpression("smirk");
-                textToSpeak = "[You felt the urge to tell Koda about what happened.]";
+                ShowExpression("neutral");
+                textToSpeak = "[What would Midnight say tonight, and what could he be hiding from you?]";
                 break;
             case 5:
-                ShowExpression("smirk");
-                textToSpeak = "[How should you approach this?]";
+                ShowExpression("neutral");
+                textToSpeak = "[You thought about this for awhile, Koda turned to you, waiting for your input.]";
                 break;
         }
 
@@ -223,30 +223,28 @@ public class Scene07Event : MonoBehaviour
                 ShowExpression("embarrassed");
                 choiceLines = new string[]
                 {
-                    "[Koda looked at you, scanning your face for any signs of joking as you told him what happened last night.]",
-                    "A talking cat inside of your phone? Dude, is the phone possessed or something?",
-                    "I mean, it's not like I haven't heard of that kind of stuff before, but still...",
-                    "Maybe you were just seeing things, I mean everyone sees stuff once in a while, right? It's probably just your imagination running wild.",
-                    "That must be it [laughs nerviously]"
+                    "[Koda looked at you with a puzzled expression.] Not a real cat?",
+                    "Like, not a physical talking cat? ",
+                    "A figure that only appears on your phone?",
+                    "Dude, I can't tell if you're joking or not. By the looks of it, joking is the last thing on your mind"
                 };
                 break;
             case 1:
-                ShowExpression("embarrassed");
+                ShowExpression("smirk");
                 choiceLines = new string[]
                 {
-                    "[Koda gave you a weird look as you told him what haoppened last night.]",
-                    "A talking cat, inside of your phone? That sounds like a dream, sure you weren't dreaming bro?",
-                    "Sounds like you were just seeing things, I mean everyone sees stuff once in a while, right? It's probably just your imagination running wild.",
+                    "[he supresses a chuckle] I see what you did there, quite a joker Asa!",
+                    "What? You said he's a cat? Inside of your phone? Not a physical talking cat?",
+                    "Well... that sounds, interesting. It makes me want to meet it even more.",
                 };
                 break;
             case 2:
                 ShowExpression("embarrassed");
                 choiceLines = new string[]
                 {
-                    "Cat go meow meow, phone go ring ring, and you go scream scream?",
-                    "[laughs nervously]",
-                    "Did you get enough sleep yesterday? Sounds like a bunch of nonsense to me, bro. You probably just had a nightmare or something.",
-                    "Yeah, just a nightmare..."
+                    "Beyond scary?!",
+                    "Dude, you said he lives inside your phone, right? How is that even possible? How could he even be scary, now that I realize.",
+                    "You're messing with me, he's probably not that scary, right?",
                 };
                 break;
         }
@@ -378,6 +376,6 @@ public class Scene07Event : MonoBehaviour
         textBox.SetActive(true);
         fadeOut.SetActive(true);
         yield return new WaitForSeconds(4f);
-        SceneManager.LoadScene(11);
+        SceneManager.LoadScene(13);
     }
 }
