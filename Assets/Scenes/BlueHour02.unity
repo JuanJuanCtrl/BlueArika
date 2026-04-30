@@ -2101,17 +2101,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1065850821}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 015a98783e8408a4695b182ae1d6b922, type: 3}
+  m_Script: {fileID: 11500000, guid: 84fe7f5f483c1214cbea5def831afbf4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Scene04Event
+  m_EditorClassIdentifier: Assembly-CSharp::Scene08Event
   charMidnightHappy: {fileID: 1413493139}
   charMidnightEmbarrassed: {fileID: 2126314756}
   charMidnightDelighted: {fileID: 169323781}
   charMidnightConfused: {fileID: 1567452979}
   charMidnightAngry: {fileID: 640619712}
+  charKodaEmbarrassed: {fileID: 1570025160}
+  charKodaNeutral: {fileID: 1870167822}
+  charKodaSurprised: {fileID: 557539442}
+  charKodaSmile: {fileID: 523421908}
+  charKodaSmirk: {fileID: 1745570491}
   fadeScreenIn: {fileID: 27370943}
   textBox: {fileID: 762409464}
-  speakerName: You
+  speakerName: Midnight
   textToSpeak: 
   currentTextLength: 0
   textLength: 0
@@ -3810,7 +3815,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1065850824}
-        m_TargetAssemblyTypeName: Scene04Event, Assembly-CSharp
+        m_TargetAssemblyTypeName: Scene08Event, Assembly-CSharp
         m_MethodName: NextButton
         m_Mode: 1
         m_Arguments:
