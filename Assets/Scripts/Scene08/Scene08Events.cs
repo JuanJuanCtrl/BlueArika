@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,6 +7,22 @@ using TMPro;
 
 public class Scene08Event : MonoBehaviour
 {
+    [System.Serializable]
+    private class DialogueEntry
+    {
+        public string speaker;
+        public string text;
+
+        public DialogueEntry(string speaker, string text)
+        {
+            this.speaker = speaker;
+            this.text = text;
+        }
+    }
+
+    [Header("Dialogue Source")]
+    [SerializeField] private TextAsset sceneDialogueFile;
+
     [Header("Character Expressions")]
     public GameObject charMidnightHappy;
     public GameObject charMidnightEmbarrassed;
@@ -17,22 +34,103 @@ public class Scene08Event : MonoBehaviour
     public GameObject charKodaSurprised;
     public GameObject charKodaSmile;
     public GameObject charKodaSmirk;
+    public GameObject KodaBase;
 
     public GameObject fadeScreenIn;
     public GameObject textBox;
 
     [SerializeField] private string speakerName = "Midnight";
-    [SerializeField] string textToSpeak;
-    [SerializeField] int currentTextLength;
-    [SerializeField] int textLength;
-    [SerializeField] GameObject mainTextObject;
-    [SerializeField] GameObject nextButton;
-    [SerializeField] int eventPos = 0;
-    [SerializeField] GameObject charName;
-    [SerializeField] GameObject fadeOut;
+    [SerializeField] private string textToSpeak;
+    [SerializeField] private int currentTextLength;
+    [SerializeField] private int textLength;
+    [SerializeField] private GameObject mainTextObject;
+    [SerializeField] private GameObject nextButton;
+    [SerializeField] private int eventPos = 0;
+    [SerializeField] private GameObject charName;
+    [SerializeField] private GameObject fadeOut;
 
-    int introIndex = 0;
-    bool isFadingOut = false;
+    private readonly List<DialogueEntry> dialogueLines = new List<DialogueEntry>();
+    private int dialogueIndex = 0;
+    private bool isFadingOut = false;
+
+    private const string DefaultSceneDialogue = @"You
+
+[You and Koda waited for a long time, before your phone's screen went white.]
+
+[After a few seconds, the white feline from before appeared on your screen.]
+
+Midnight
+
+Oh, Asa! About yesterd-
+
+[He stopped, the digital eyes surprised by the sight of another human next to you]
+
+Asa, who's this? [He said, curiously.]
+
+Is he a friend of yours? Why is he here, it's midnight!
+
+[He looked at Koda, then back at you]
+
+Judging by the stars outside and the set time on your phone, it's past your bedtime!
+
+[Koda looked at you, puzzled. He leaned into your ear, whispering.]
+
+Koda
+
+So... This is Midnight, he acts as if he were your mother.
+
+He's not your mother, right? Well, he doesn't look scary at all!
+
+I knew it, he's a cute kitten!
+
+[Midnight's digital eyes moved to Koda, giving him a warning glare.]
+
+Midnight
+
+I'm not a cute kitty! I'm a grown cat, I'm 2 years old. That's around
+25 years old if converted to human years!
+
+Which means... I'm older than you! [He said, almost offended]
+
+[A digital sigh came off Midnight, as if he was really alive.]
+
+Look, there's something bizarre I discovered!
+
+It has to do with this weird blue fog, and I'm currently detecting its presence outside in town. The entire town of Kasato.
+
+You two, don't go outside when the clock strikes twelve. [He said frantically.]
+
+That's what I wanted to tell you yesterday, Asa... Everyone should know, I think.
+
+[There was a long silence, like Midnight was doing something in the background.]
+
+I... have to go, they're calling me.
+
+[He said, not letting any more questions be answered for the day. The screen turned black before the app closed, leaving you on the homescreen once again.]
+
+Koda
+
+[with a disappointed look] Hmm... Well he did end up answering my question about the fog.
+
+[he started recalling what it said] Don't go outside when twelve strikes... Don't go out at midnight. That weird blue fog envelops the entire town of Kasato...
+
+Well, I suppose we can wait for tomorrow and see what he says.
+
+[he looked at the clock in your bedroom]
+Uh oh, well... That means I can't go home right now. I guess you won't care if I sleep here tonight?
+
+And, do you have any extra pillows? I don't mind sleeping without a blanket.
+
+You
+
+[You began processing everything Midnight had told you about the blue fog, and that it only appears when the clock strikes twelve.]
+
+[What is that blue fog? Where did it come from? What does it mean... Your mind was once again cluttered with unanswerable questions for the time being. You and Koda decided to sleep, and begin planning what to do tomorrow.]";
+
+    void Awake()
+    {
+        LoadDialogueLines();
+    }
 
     void Update()
     {
@@ -42,6 +140,68 @@ public class Scene08Event : MonoBehaviour
     void Start()
     {
         StartCoroutine(EventStarter());
+    }
+
+    void LoadDialogueLines()
+    {
+        dialogueLines.Clear();
+
+        string rawDialogue = sceneDialogueFile != null && !string.IsNullOrWhiteSpace(sceneDialogueFile.text)
+            ? sceneDialogueFile.text
+            : DefaultSceneDialogue;
+
+        ParseDialogue(rawDialogue);
+    }
+
+    void ParseDialogue(string rawDialogue)
+    {
+        string currentSpeaker = "You";
+        List<string> blockLines = new List<string>();
+        string[] lines = rawDialogue.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n');
+
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string trimmed = lines[i].Trim();
+
+            if (IsSpeakerHeader(trimmed))
+            {
+                FlushDialogueBlock(currentSpeaker, blockLines);
+                currentSpeaker = trimmed;
+                continue;
+            }
+
+            if (string.IsNullOrWhiteSpace(trimmed))
+            {
+                FlushDialogueBlock(currentSpeaker, blockLines);
+                continue;
+            }
+
+            blockLines.Add(trimmed);
+        }
+
+        FlushDialogueBlock(currentSpeaker, blockLines);
+
+        if (dialogueLines.Count == 0)
+        {
+            Debug.LogWarning("Scene08Event could not parse any dialogue lines.");
+        }
+    }
+
+    bool IsSpeakerHeader(string line)
+    {
+        return line == "You" || line == "Midnight" || line == "Koda";
+    }
+
+    void FlushDialogueBlock(string speaker, List<string> blockLines)
+    {
+        if (blockLines.Count == 0)
+        {
+            return;
+        }
+
+        string text = string.Join(" ", blockLines).Trim();
+        dialogueLines.Add(new DialogueEntry(speaker, text));
+        blockLines.Clear();
     }
 
     void HideAllExpressions()
@@ -62,9 +222,24 @@ public class Scene08Event : MonoBehaviour
         charKodaSmirk.SetActive(false);
     }
 
-    void ShowExpression(string expression)
+    void HideAllCharacterExpressions()
     {
         HideAllExpressions();
+        HideAllKodaExpressions();
+        SetKodaBaseActive(false);
+    }
+
+    void SetKodaBaseActive(bool isActive)
+    {
+        if (KodaBase != null)
+        {
+            KodaBase.SetActive(isActive);
+        }
+    }
+
+    void ShowExpression(string expression)
+    {
+        HideAllCharacterExpressions();
 
         switch (expression)
         {
@@ -88,26 +263,41 @@ public class Scene08Event : MonoBehaviour
 
     void ShowKodaExpression(string expression)
     {
-        HideAllKodaExpressions();
+        HideAllCharacterExpressions();
 
         switch (expression)
         {
             case "embarrassed":
                 charKodaEmbarrassed.SetActive(true);
+                SetKodaBaseActive(true);
                 break;
             case "neutral":
                 charKodaNeutral.SetActive(true);
+                SetKodaBaseActive(false);
                 break;
             case "surprised":
                 charKodaSurprised.SetActive(true);
+                SetKodaBaseActive(true);
                 break;
             case "smile":
                 charKodaSmile.SetActive(true);
+                SetKodaBaseActive(true);
                 break;
             case "smirk":
                 charKodaSmirk.SetActive(true);
+                SetKodaBaseActive(true);
                 break;
-        }
+            }
+    }
+
+    void ShowMidnightExpression(string expression)
+    {
+        ShowExpression(expression);
+    }
+
+    void ShowKodaFocusedExpression(string expression)
+    {
+        ShowKodaExpression(expression);
     }
 
     void SetExpressionAlpha(GameObject expressionObject, float alpha)
@@ -140,111 +330,14 @@ public class Scene08Event : MonoBehaviour
         }
     }
 
-    IEnumerator FadeInExpression(string expression)
-    {
-        GameObject target = null;
-
-        switch (expression)
-        {
-            case "happy":
-                target = charMidnightHappy;
-                break;
-            case "embarrassed":
-                target = charMidnightEmbarrassed;
-                break;
-            case "delighted":
-                target = charMidnightDelighted;
-                break;
-            case "confused":
-                target = charMidnightConfused;
-                break;
-            case "angry":
-                target = charMidnightAngry;
-                break;
-        }
-
-        if (target == null)
-        {
-            yield break;
-        }
-
-        HideAllExpressions();
-        target.SetActive(true);
-        SetExpressionAlpha(target, 0f);
-
-        float duration = 1f;
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float alpha = Mathf.Clamp01(elapsed / duration);
-            SetExpressionAlpha(target, alpha);
-            yield return null;
-        }
-
-        SetExpressionAlpha(target, 1f);
-    }
-
-    IEnumerator FadeInKodaExpression(string expression)
-    {
-        GameObject target = null;
-
-        switch (expression)
-        {
-            case "embarrassed":
-                target = charKodaEmbarrassed;
-                break;
-            case "neutral":
-                target = charKodaNeutral;
-                break;
-            case "surprised":
-                target = charKodaSurprised;
-                break;
-            case "smile":
-                target = charKodaSmile;
-                break;
-            case "smirk":
-                target = charKodaSmirk;
-                break;
-        }
-
-        if (target == null)
-        {
-            yield break;
-        }
-
-        HideAllKodaExpressions();
-        target.SetActive(true);
-        SetExpressionAlpha(target, 0f);
-
-        float duration = 1f;
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float alpha = Mathf.Clamp01(elapsed / duration);
-            SetExpressionAlpha(target, alpha);
-            yield return null;
-        }
-
-        SetExpressionAlpha(target, 1f);
-    }
-
-    IEnumerator FadeOutAllExpressions(float duration = 1f)
+    IEnumerator FadeOutMidnightExpressions(float duration = 1f)
     {
         GameObject[] expressions = {
             charMidnightHappy,
             charMidnightEmbarrassed,
             charMidnightDelighted,
             charMidnightConfused,
-            charMidnightAngry,
-            charKodaEmbarrassed,
-            charKodaNeutral,
-            charKodaSurprised,
-            charKodaSmile,
-            charKodaSmirk
+            charMidnightAngry
         };
 
         float elapsed = 0f;
@@ -275,164 +368,159 @@ public class Scene08Event : MonoBehaviour
         }
     }
 
+    void HideAllCharacterExpressionsInstant()
+    {
+        GameObject[] expressions = {
+            charMidnightHappy,
+            charMidnightEmbarrassed,
+            charMidnightDelighted,
+            charMidnightConfused,
+            charMidnightAngry,
+            charKodaEmbarrassed,
+            charKodaNeutral,
+            charKodaSurprised,
+            charKodaSmile,
+            charKodaSmirk
+        };
+
+        for (int i = 0; i < expressions.Length; i++)
+        {
+            if (expressions[i] != null)
+            {
+                expressions[i].SetActive(false);
+            }
+        }
+    }
+
     IEnumerator EventStarter()
     {
         yield return new WaitForSeconds(2f);
         fadeScreenIn.SetActive(false);
-        HideAllExpressions();
-        HideAllKodaExpressions();
+        HideAllCharacterExpressions();
         ShowKodaExpression("neutral");
         yield return new WaitForSeconds(2f);
 
         mainTextObject.SetActive(true);
         textBox.SetActive(true);
 
-        introIndex = 0;
-        yield return StartCoroutine(PlayLine(introIndex));
+        dialogueIndex = 0;
+        yield return StartCoroutine(PlayLine(dialogueIndex));
 
         eventPos = 0;
     }
 
-    IEnumerator PlayLine(int index)
+    void ApplyDialogueExpression(int index, string speaker)
     {
-        nextButton.SetActive(false);
+        if (speaker == "You")
+        {
+            if (index == dialogueLines.Count - 1)
+            {
+                HideAllCharacterExpressionsInstant();
+            }
+
+            return;
+        }
 
         switch (index)
         {
-            case 0:
-                speakerName = "You";
-                textToSpeak = "[You woke up in the middle of the night.]";
-                break;
-            case 1:
-                speakerName = "You";
-                textToSpeak = "[There is a heavy atmosphere in your bedroom.]";
-                break;
             case 2:
-                speakerName = "You";
-                textToSpeak = "[Your phone's screen was on.]";
+                ShowMidnightExpression("happy");
                 break;
             case 3:
-                speakerName = "You";
-                textToSpeak = "[A mysterious app called Midnight was open, with a black cat icon.]";
-                break;
             case 4:
-                speakerName = "You";
-                textToSpeak = "[You do not recall installing that app.]";
-                break;
             case 5:
-                speakerName = "You";
-                textToSpeak = "[So you deleted it from your phone.]";
+                ShowMidnightExpression("confused");
                 break;
             case 6:
-                speakerName = "You";
-                textToSpeak = "[The app was not deleted, and it opened on its own.]";
-                break;
             case 7:
-                speakerName = "You";
-                textToSpeak = "[There was a white feline face on your screen, but...]";
+                ShowMidnightExpression("angry");
                 break;
             case 8:
-                speakerName = "Koda";
-                StartCoroutine(FadeInKodaExpression("surprised"));
-                textToSpeak = "H-hello?";
+                ShowKodaFocusedExpression("surprised");
                 break;
             case 9:
-                speakerName = "Koda";
-                ShowKodaExpression("smile");
-                textToSpeak = "Thank God! I was able to find a connection!";
+                ShowKodaFocusedExpression("smile");
                 break;
             case 10:
-                speakerName = "Koda";
-                ShowKodaExpression("smirk");
-                textToSpeak = "You must be that person I was looking for...";
+                ShowKodaFocusedExpression("smirk");
                 break;
             case 11:
-                speakerName = "Koda";
-                ShowKodaExpression("embarrassed");
-                textToSpeak = "Asa, ain't it?";
+                ShowKodaFocusedExpression("embarrassed");
                 break;
             case 12:
-                speakerName = "You";
-                ShowKodaExpression("neutral");
-                textToSpeak = "[You don't know whoever is talking to you, but the person on the other side seems to know you.]";
+                ShowMidnightExpression("angry");
                 break;
             case 13:
-                speakerName = "Midnight";
-                HideAllKodaExpressions();
-                ShowExpression("happy");
-                textToSpeak = "The name's Midnight, I live inside your phone. That's how I know your name!";
-                break;
             case 14:
-                speakerName = "Midnight";
-                ShowExpression("happy");
-                textToSpeak = "Make sure to keep it charged!";
+                ShowMidnightExpression("angry");
                 break;
             case 15:
-                speakerName = "Midnight";
-                ShowExpression("happy");
-                textToSpeak = "Anyways, you wouldn't mind if I used your time for a bit?";
+                ShowMidnightExpression("confused");
                 break;
             case 16:
-                speakerName = "You";
-                ShowExpression("confused");
-                textToSpeak = "[He seems to have given you a choice, but you cannot escape it. You feel like you have to agree no matter how he puts it.]";
+                ShowMidnightExpression("delighted");
                 break;
             case 17:
-                speakerName = "Midnight";
-                ShowExpression("delighted");
-                textToSpeak = "Great! Now, how do I say this...";
+                ShowMidnightExpression("confused");
                 break;
             case 18:
-                speakerName = "Midnight";
-                ShowExpression("delighted");
-                textToSpeak = "You see, I've made a grand discovery that'll sure shake this world of yours.";
+                ShowMidnightExpression("angry");
                 break;
             case 19:
-                speakerName = "Midnight";
-                ShowExpression("confused");
-                textToSpeak = "Haven't you noticed some of the people outside acting weird?";
+                ShowMidnightExpression("confused");
                 break;
             case 20:
-                speakerName = "Midnight";
-                ShowExpression("confused");
-                textToSpeak = "They even sound weird, I can't make this up!";
+                ShowMidnightExpression("confused");
                 break;
             case 21:
-                speakerName = "You";
-                ShowExpression("confused");
-                textToSpeak = "[You felt the desperate tone in his boyish, slightly raspy voice. You feel rather confused.]";
+                ShowMidnightExpression("angry");
                 break;
             case 22:
-                speakerName = "Midnight";
-                ShowExpression("delighted");
-                textToSpeak = "I... can't prove it yet, but I'm willing to investigate further!";
+                ShowMidnightExpression("happy");
                 break;
             case 23:
-                speakerName = "Midnight";
-                ShowExpression("delighted");
-                textToSpeak = "If you could take me on regular walks, I'll collect enough information to back my evidence up!";
+                ShowKodaFocusedExpression("embarrassed");
                 break;
             case 24:
-                speakerName = "Midnight";
-                ShowExpression("confused");
-                textToSpeak = "Although I hope it isn't weird taking your phone on a walk, right?";
+                ShowKodaFocusedExpression("neutral");
                 break;
             case 25:
-                speakerName = "Midnight";
-                ShowExpression("embarrassed");
-                textToSpeak = "Um, I also need help with something, but I guess I don't wanna keep you awake all night.";
-                break;
             case 26:
-                speakerName = "Midnight";
-                ShowExpression("happy");
-                textToSpeak = "Let's leave that for tomorrow. Nighty-night, Asa!";
+                ShowKodaFocusedExpression("neutral");
                 break;
             case 27:
-                speakerName = "You";
-                ShowExpression("happy");
-                textToSpeak = "[With that, your phone's screen went black and the app closed, leaving you on the homescreen. You put your phone away and went back to sleep, the atmosphere felt lighter.]";
-                StartCoroutine(FadeOutAllExpressions(1.5f));
+            case 28:
+                ShowKodaFocusedExpression("embarrassed");
                 break;
+            case 29:
+                ShowKodaFocusedExpression("neutral");
+                break;
+        }
+    }
+
+    IEnumerator PlayLine(int index)
+    {
+        if (dialogueLines.Count == 0)
+        {
+            LoadDialogueLines();
+        }
+
+        nextButton.SetActive(false);
+
+        if (index < 0 || index >= dialogueLines.Count)
+        {
+            yield break;
+        }
+
+        DialogueEntry entry = dialogueLines[index];
+        speakerName = entry.speaker;
+        textToSpeak = entry.text;
+
+        ApplyDialogueExpression(index, speakerName);
+
+        if (speakerName == "Midnight" && textToSpeak.Contains("screen turned black before the app closed"))
+        {
+            StartCoroutine(FadeOutMidnightExpressions(1.5f));
         }
 
         charName.GetComponent<TMPro.TMP_Text>().text = speakerName;
@@ -456,7 +544,7 @@ public class Scene08Event : MonoBehaviour
         fadeOut.SetActive(true);
 
         yield return new WaitForSeconds(4f);
-        SceneManager.LoadScene(8);
+        SceneManager.LoadScene(15);
     }
 
     public void NextButton()
@@ -468,10 +556,10 @@ public class Scene08Event : MonoBehaviour
 
         if (eventPos == 0)
         {
-            introIndex++;
-            if (introIndex <= 27)
+            dialogueIndex++;
+            if (dialogueIndex < dialogueLines.Count)
             {
-                StartCoroutine(PlayLine(introIndex));
+                StartCoroutine(PlayLine(dialogueIndex));
             }
             else
             {

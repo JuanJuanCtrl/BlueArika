@@ -2104,6 +2104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84fe7f5f483c1214cbea5def831afbf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scene08Event
+  sceneDialogueFile: {fileID: 0}
   charMidnightHappy: {fileID: 1413493139}
   charMidnightEmbarrassed: {fileID: 2126314756}
   charMidnightDelighted: {fileID: 169323781}
@@ -2114,6 +2115,7 @@ MonoBehaviour:
   charKodaSurprised: {fileID: 557539442}
   charKodaSmile: {fileID: 523421908}
   charKodaSmirk: {fileID: 1745570491}
+  KodaBase: {fileID: 1416214982}
   fadeScreenIn: {fileID: 27370943}
   textBox: {fileID: 762409464}
   speakerName: Midnight
