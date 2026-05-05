@@ -41,13 +41,13 @@ public class Scene09Event : MonoBehaviour
     // --- Dialogue segment arrays and indices ---
     private string[] transitionLines =
     {
-        "Anyways bro, you said we should wait till midnight for him to appear? I guess that makes sense, since his name is Midnight and all, but still...",
-        "[He softly groans]",
-        "It's 8:00 PM right now, so we have a few hours to kill.",
-        "We don't really have anywhere to go, and I doubt they'd let some high schoolers roam the streets at night.",
-        "They even caught me once trying to sneak into the arcade, that was like a year ago...",
-        "I don't even know why I'm telling you this, but you don't seem to judge. I guess that's why we're friends...",
-        "[You and Koda kept talking for a while, eventually going inside to wait for midnight to come. What could Midnight say tonight...]"
+        "Anyways dude, let's hit town before it gets too late!",
+        "We can go to that restaurant I told you about after I show you around a bit!",
+        "We can even try to get some chicks phone numbers if you're like me [he lightly teased]",
+        "Although, I suppose they'll all settle for Koda, the local legend around here [he smirked]",
+        "Anyways , let's stop yapping and get going, we got a lot to do before the day ends!",
+        "[As Koda finished his sentence, he processed to stretch and then turn to walk]",
+        "[You felt like this was a great opportunity to hang out with Koda and get to know him better...]"
     };
     private int transitionLineIndex = 0;
 
@@ -142,15 +142,15 @@ public class Scene09Event : MonoBehaviour
             textToSpeak = "There's a great restaurant downtown that I think you'd like, it's called Nabana Diner. They got the best steaks, you gotta try Kasato's specialty!";
                 break;
             case 3:
-                ShowExpression("neutral");
+                ShowExpression("smirk");
                 textToSpeak = "[You felt Koda's excitement, the previous tension from the day before replaced by the thrill of hanging out with you.]";
                 break;
             case 4:
-                ShowExpression("neutral");
+                ShowExpression("smirk");
                 textToSpeak = "[You remembered what Midnight said last night about not going out during midnight. Koda should remember too, since he was there when you talked to him about it. You wonder if you should tell him again, just to be safe.]";
                 break;
             case 5:
-                ShowExpression("neutral");
+                ShowExpression("smirk");
                 textToSpeak = "[Koda looks at you with his signature smirk, ready for your answer.]";
                 break;
         }
@@ -238,12 +238,12 @@ public class Scene09Event : MonoBehaviour
                 };
                 break;
             case 2:
-                ShowExpression("embarrassed");
+                ShowExpression("smirk");
                 choiceLines = new string[]
                 {
-                    "Beyond scary?!",
-                    "Dude, you said he lives inside your phone, right? How is that even possible? How could he even be scary, now that I realize.",
-                    "You're messing with me, he's probably not that scary, right?",
+                    "Know me? Of course they do, I'm like a local celebritiy around her!",
+                    "Except people don't really approach me, nor ask for pictures or autographs, but they know who I am, and that's what matters!",
+                    "You can even become pretty famous around here... well, I got my own reasons because of the arcade...",
                 };
                 break;
         }
@@ -278,7 +278,7 @@ public class Scene09Event : MonoBehaviour
         nextButton.SetActive(false);
         isTyping = true;
 
-        ShowExpression("neutral");
+        ShowExpression("smile");
         if (lineIndex >= 0 && lineIndex < transitionLines.Length)
         {
             textToSpeak = transitionLines[lineIndex];
@@ -375,6 +375,6 @@ public class Scene09Event : MonoBehaviour
         textBox.SetActive(true);
         fadeOut.SetActive(true);
         yield return new WaitForSeconds(4f);
-        SceneManager.LoadScene(13);
+        SceneManager.LoadScene(17);
     }
 }

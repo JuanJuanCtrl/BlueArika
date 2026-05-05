@@ -54,7 +54,7 @@ public class DayTransition2 : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        SceneManager.LoadScene(9);
+        SceneManager.LoadScene(16);
     }
 
     private IEnumerator FadeOutNextDay()
