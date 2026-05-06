@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &27370944
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1587,7 +1587,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: d28605ffc06a2544f833b1f9fe54a19c, type: 3}
+  m_Texture: {fileID: 2800000, guid: 14f625af6167d894d9adb2470a54c923, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1731,7 +1731,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 10feb1a1b5c216c42af1b55025cbf22c, type: 3}
+  m_Texture: {fileID: 2800000, guid: 55900db0ae9d9464fa1c4f1b9e53aade, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2231,9 +2231,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1065850821}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84fe7f5f483c1214cbea5def831afbf4, type: 3}
+  m_Script: {fileID: 11500000, guid: 3195b706b809cc94fa44107756c37b38, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Scene08Event
+  m_EditorClassIdentifier: Assembly-CSharp::Scene10Event
   sceneDialogueFile: {fileID: 0}
   charMidnightHappy: {fileID: 1413493139}
   charMidnightEmbarrassed: {fileID: 2126314756}
@@ -2664,7 +2664,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: d9764fd09a164a14d97f457e56ff2f23, type: 3}
+  m_Texture: {fileID: 2800000, guid: d87b44e3149036d4fb0dd07a7e878e23, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -3032,7 +3032,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: d9ba1a9116f67d0479b7c5bcd4c671f0, type: 3}
+  m_Texture: {fileID: 2800000, guid: b8b046cc7c290d142924f274e8332620, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -3426,7 +3426,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 944a8e00f3b8b6946bdc96736e321aae, type: 3}
+  m_Texture: {fileID: 2800000, guid: eff001cc4f59d094390bce34f0e7a2c4, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -3498,7 +3498,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: d9764fd09a164a14d97f457e56ff2f23, type: 3}
+  m_Texture: {fileID: 2800000, guid: d87b44e3149036d4fb0dd07a7e878e23, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -3874,7 +3874,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1065850824}
-        m_TargetAssemblyTypeName: Scene08Event, Assembly-CSharp
+        m_TargetAssemblyTypeName: Scene10Event, Assembly-CSharp
         m_MethodName: NextButton
         m_Mode: 1
         m_Arguments:
