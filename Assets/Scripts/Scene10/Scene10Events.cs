@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using TMPro;
 
@@ -24,11 +25,17 @@ public class Scene10Event : MonoBehaviour
     [SerializeField] private TextAsset sceneDialogueFile;
 
     [Header("Character Expressions")]
-    public GameObject charMidnightHappy;
-    public GameObject charMidnightEmbarrassed;
-    public GameObject charMidnightDelighted;
-    public GameObject charMidnightConfused;
-    public GameObject charMidnightAngry;
+    [FormerlySerializedAs("charMidnightConfused")]
+    public GameObject charHiromiNeutral;
+    [FormerlySerializedAs("charMidnightAngry")]
+    public GameObject charHiromiAngry;
+    [FormerlySerializedAs("charMidnightDelighted")]
+    public GameObject charHiromiDelighted;
+    [FormerlySerializedAs("charMidnightEmbarrassed")]
+    public GameObject charHiromiShocked;
+    [FormerlySerializedAs("charMidnightHappy")]
+    public GameObject charHiromiSmile;
+    public GameObject charHiromiSmug;
     public GameObject charKodaEmbarrassed;
     public GameObject charKodaNeutral;
     public GameObject charKodaSurprised;
@@ -39,7 +46,7 @@ public class Scene10Event : MonoBehaviour
     public GameObject fadeScreenIn;
     public GameObject textBox;
 
-    [SerializeField] private string speakerName = "Midnight";
+    [SerializeField] private string speakerName = "Hiromi";
     [SerializeField] private string textToSpeak;
     [SerializeField] private int currentTextLength;
     [SerializeField] private int textLength;
@@ -55,77 +62,85 @@ public class Scene10Event : MonoBehaviour
 
     private const string DefaultSceneDialogue = @"You
 
-[You and Koda waited for a long time, before your phone's screen went white.]
-
-[After a few seconds, the white feline from before appeared on your screen.]
-
-Midnight
-
-Oh, Asa! About yesterd-
-
-[He stopped, the digital eyes surprised by the sight of another human next to you]
-
-Asa, who's this? [He said, curiously.]
-
-Is he a friend of yours? Why is he here, it's midnight!
-
-[He looked at Koda, then back at you]
-
-Judging by the stars outside and the set time on your phone, it's past your bedtime!
-
-[Koda looked at you, puzzled. He leaned into your ear, whispering.]
+[You and Koda arrived at Kasato Downtown by travelling via train. Koda looks rather excited]
 
 Koda
 
-So... This is Midnight, he acts as if he were your mother.
+Okay bro, welcome to the real Kasato!
 
-He's not your mother, right? Well, he doesn't look scary at all!
+Isn't it amazing? It's better than the dull school hallways, there's a lot of us students who hang around these areas.
 
-I knew it, he's a cute kitten!
+Let's go, we can't possibly waste any more time, let's hit Nabana Diner!
 
-[Midnight's digital eyes moved to Koda, giving him a warning glare.]
+[Just when you two started walking, you felt like someone bumped into you. You went and looked back at who it was.]
 
-Midnight
+Huh, what's up br-
 
-I'm not a cute kitty! I'm a grown cat, I'm 2 years old. That's around
-25 years old if converted to human years!
+Oh, look who it is! [he turned to the unknown girl]
 
-Which means... I'm older than you! [He said, almost offended]
+Hiromi
 
-[A digital sigh came off Midnight, as if he was really alive.]
+KODA! YOU STOLE MY HOMEWORK YESTERDAY!!!
 
-Look, there's something bizarre I discovered!
+YOU KNOW I HAD TO TURN THAT IN, GIVE IT BACK!
 
-It has to do with this weird blue fog, and I'm currently detecting its presence outside in town. The entire town of Kasato.
+[She looked at him angrily, then looked at you, calming down.]
 
-You two, don't go outside when the clock strikes twelve. [He said frantically.]
-
-That's what I wanted to tell you yesterday, Asa... Everyone should know, I think.
-
-[There was a long silence, like Midnight was doing something in the background.]
-
-I... have to go, they're calling me.
-
-[He said, not letting any more questions be answered for the day. The screen turned black before the app closed, leaving you on the homescreen once again.]
+Oh, aren't you that new guy? What's your name again?
 
 Koda
 
-[with a disappointed look] Hmm... Well he did end up answering my question about the fog.
+[interrupting]
 
-[he started recalling what it said] Don't go outside when twelve strikes... Don't go out at midnight. That weird blue fog envelops the entire town of Kasato...
+His name is Asa, and...
 
-Well, I suppose we can wait for tomorrow and see what he says.
+[Koda looks over at you]
 
-[he looked at the clock in your bedroom]
-Uh oh, well... That means I can't go home right now. I guess you won't care if I sleep here tonight?
+She's Hiromi Abara, she's my best friend. She's the one I was teasing you about on your first day here!
 
-And, do you have any extra pillows? I don't mind sleeping without a blanket.
+Hiromi
 
-You
+[He looked over at Koda]
 
-[You began processing everything Midnight had told you about the blue fog, and that it only appears when the clock strikes twelve.]
+You what?! You know I don't wanna date anyone, Koda!
 
-[What is that blue fog? Where did it come from? What does it mean... Your mind was once again cluttered with unanswerable questions for the time being. You and Koda decided to sleep, and begin planning what to do tomorrow.]";
+[She looks back at you]
+
+Sorry, this doofus always has something to say. You're not the only one, but definitely his favorite. Ugh!
+
+I'm in your same class, I'm the girl sitting next to Koda. He can be quite a handful, I know...
+
+[He looked at Koda]
+
+Where are you two going anyways, wait let me guess...
+
+Nabana? [looks at Koda]
+
+Koda
+
+Of course we are, wanna come? You'll have to pay for your own food though, I'm already treating Asa here.
+
+Hiromi
+
+WHAT?! Don't you have a sense of chivalry, why not pay for your best friend? I literally bought you that shirt for your birthday last year!
+
+Koda
+
+[embarassed] Uhh, well... Let's just go to Nabana Diner!
+
+Hiromi
+
+[with a smug grin] Knew it, same old Koda. Bring up something like that and he'll stop being a headache.
+
+Let's go, I'm Hiromi Abara by the way, I guess Koda already told you that.
+
+[He looked at Koda, already walking away in a rush]
+
+W-wait for me, I got small legs!
+
+[You started walking with the two, feeling like you just made a new friend. Hiromi Abara]
+
+[You completely pushed the thoughts about Midnight aside and enjoyed your time with them. What could possibly happen if you didn't?]";
 
     void Awake()
     {
@@ -183,13 +198,35 @@ You
 
         if (dialogueLines.Count == 0)
         {
-            Debug.LogWarning("Scene08Event could not parse any dialogue lines.");
+            Debug.LogWarning("Scene10Event could not parse any dialogue lines.");
         }
     }
 
     bool IsSpeakerHeader(string line)
     {
-        return line == "You" || line == "Midnight" || line == "Koda";
+        string normalizedLine = NormalizeSpeakerHeader(line);
+        return normalizedLine == "You" || normalizedLine == "Hiromi" || normalizedLine == "Koda";
+    }
+
+    string NormalizeSpeakerHeader(string line)
+    {
+        if (string.IsNullOrWhiteSpace(line))
+        {
+            return string.Empty;
+        }
+
+        string trimmed = line.Trim();
+        if (trimmed.StartsWith("(") && trimmed.EndsWith(")") && trimmed.Length > 2)
+        {
+            return trimmed.Substring(1, trimmed.Length - 2).Trim();
+        }
+
+        if (trimmed == "Brown-haired Girl")
+        {
+            return "Hiromi";
+        }
+
+        return trimmed;
     }
 
     void FlushDialogueBlock(string speaker, List<string> blockLines)
@@ -206,11 +243,12 @@ You
 
     void HideAllExpressions()
     {
-        charMidnightHappy.SetActive(false);
-        charMidnightEmbarrassed.SetActive(false);
-        charMidnightDelighted.SetActive(false);
-        charMidnightConfused.SetActive(false);
-        charMidnightAngry.SetActive(false);
+        charHiromiNeutral.SetActive(false);
+        charHiromiAngry.SetActive(false);
+        charHiromiDelighted.SetActive(false);
+        charHiromiShocked.SetActive(false);
+        charHiromiSmile.SetActive(false);
+        charHiromiSmug.SetActive(false);
     }
 
     void HideAllKodaExpressions()
@@ -237,26 +275,29 @@ You
         }
     }
 
-    void ShowExpression(string expression)
+    void ShowHiromiExpression(string expression)
     {
         HideAllCharacterExpressions();
 
         switch (expression)
         {
-            case "happy":
-                charMidnightHappy.SetActive(true);
-                break;
-            case "embarrassed":
-                charMidnightEmbarrassed.SetActive(true);
-                break;
-            case "delighted":
-                charMidnightDelighted.SetActive(true);
-                break;
-            case "confused":
-                charMidnightConfused.SetActive(true);
+            case "neutral":
+                charHiromiNeutral.SetActive(true);
                 break;
             case "angry":
-                charMidnightAngry.SetActive(true);
+                charHiromiAngry.SetActive(true);
+                break;
+            case "delighted":
+                charHiromiDelighted.SetActive(true);
+                break;
+            case "shocked":
+                charHiromiShocked.SetActive(true);
+                break;
+            case "smile":
+                charHiromiSmile.SetActive(true);
+                break;
+            case "smug":
+                charHiromiSmug.SetActive(true);
                 break;
         }
     }
@@ -288,11 +329,6 @@ You
                 SetKodaBaseActive(true);
                 break;
             }
-    }
-
-    void ShowMidnightExpression(string expression)
-    {
-        ShowExpression(expression);
     }
 
     void ShowKodaFocusedExpression(string expression)
@@ -330,14 +366,15 @@ You
         }
     }
 
-    IEnumerator FadeOutMidnightExpressions(float duration = 1f)
+    IEnumerator FadeOutHiromiExpressions(float duration = 1f)
     {
         GameObject[] expressions = {
-            charMidnightHappy,
-            charMidnightEmbarrassed,
-            charMidnightDelighted,
-            charMidnightConfused,
-            charMidnightAngry
+            charHiromiNeutral,
+            charHiromiAngry,
+            charHiromiDelighted,
+            charHiromiShocked,
+            charHiromiSmile,
+            charHiromiSmug
         };
 
         float elapsed = 0f;
@@ -371,11 +408,12 @@ You
     void HideAllCharacterExpressionsInstant()
     {
         GameObject[] expressions = {
-            charMidnightHappy,
-            charMidnightEmbarrassed,
-            charMidnightDelighted,
-            charMidnightConfused,
-            charMidnightAngry,
+            charHiromiNeutral,
+            charHiromiAngry,
+            charHiromiDelighted,
+            charHiromiShocked,
+            charHiromiSmile,
+            charHiromiSmug,
             charKodaEmbarrassed,
             charKodaNeutral,
             charKodaSurprised,
@@ -423,77 +461,69 @@ You
 
         switch (index)
         {
+            case 1:
             case 2:
-                ShowMidnightExpression("happy");
-                break;
             case 3:
             case 4:
             case 5:
-                ShowMidnightExpression("confused");
-                break;
             case 6:
-            case 7:
-                ShowMidnightExpression("angry");
-                break;
-            case 8:
-                ShowKodaFocusedExpression("surprised");
-                break;
-            case 9:
                 ShowKodaFocusedExpression("smile");
                 break;
+            case 7:
+            case 8:
+            case 9:
+                ShowHiromiExpression("angry");
+                break;
             case 10:
-                ShowKodaFocusedExpression("smirk");
+                ShowHiromiExpression("shocked");
                 break;
             case 11:
-                ShowKodaFocusedExpression("embarrassed");
+                ShowKodaFocusedExpression("neutral");
                 break;
             case 12:
-                ShowMidnightExpression("angry");
-                break;
             case 13:
             case 14:
-                ShowMidnightExpression("angry");
+                ShowKodaFocusedExpression("smile");
                 break;
             case 15:
-                ShowMidnightExpression("confused");
-                break;
             case 16:
-                ShowMidnightExpression("delighted");
+                ShowHiromiExpression("angry");
                 break;
             case 17:
-                ShowMidnightExpression("confused");
+            case 19:
+            case 20:
+                ShowHiromiExpression("neutral");
                 break;
             case 18:
-                ShowMidnightExpression("angry");
-                break;
-            case 19:
-                ShowMidnightExpression("confused");
-                break;
-            case 20:
-                ShowMidnightExpression("confused");
+                ShowHiromiExpression("smile");
                 break;
             case 21:
-                ShowMidnightExpression("angry");
-                break;
             case 22:
-                ShowMidnightExpression("happy");
+                ShowHiromiExpression("shocked");
                 break;
             case 23:
-                ShowKodaFocusedExpression("embarrassed");
+                ShowKodaFocusedExpression("smile");
                 break;
             case 24:
-                ShowKodaFocusedExpression("neutral");
+                ShowHiromiExpression("angry");
                 break;
             case 25:
-            case 26:
-                ShowKodaFocusedExpression("neutral");
-                break;
-            case 27:
-            case 28:
                 ShowKodaFocusedExpression("embarrassed");
                 break;
+            case 26:
+                ShowHiromiExpression("smug");
+                break;
+            case 27:
+                ShowHiromiExpression("smile");
+                break;
+            case 28:
+                ShowHiromiExpression("neutral");
+                break;
             case 29:
-                ShowKodaFocusedExpression("neutral");
+                ShowHiromiExpression("shocked");
+                break;
+            case 30:
+                ShowHiromiExpression("smile");
                 break;
         }
     }
@@ -518,9 +548,9 @@ You
 
         ApplyDialogueExpression(index, speakerName);
 
-        if (speakerName == "Midnight" && textToSpeak.Contains("screen turned black before the app closed"))
+        if (speakerName == "Hiromi" && textToSpeak.Contains("screen turned black before the app closed"))
         {
-            StartCoroutine(FadeOutMidnightExpressions(1.5f));
+            StartCoroutine(FadeOutHiromiExpressions(1.5f));
         }
 
         charName.GetComponent<TMPro.TMP_Text>().text = speakerName;
