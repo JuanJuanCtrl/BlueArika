@@ -45,6 +45,7 @@ public class Scene11Event : MonoBehaviour
 
     public GameObject fadeScreenIn;
     public GameObject textBox;
+    public GameObject nightTownBG;
 
     [SerializeField] private string speakerName = "Hiromi";
     [SerializeField] private string textToSpeak;
@@ -60,87 +61,93 @@ public class Scene11Event : MonoBehaviour
     private int dialogueIndex = 0;
     private bool isFadingOut = false;
 
-    private const string DefaultSceneDialogue = @"You
-
-[You and Koda arrived at Kasato Downtown by travelling via train. Koda looks rather excited]
+    private const string DefaultSceneDialogue = @"[You all finished eating, Koda looks quite stuffed.]
 
 Koda
 
-Okay bro, welcome to the real Kasato!
-
-Isn't it amazing? It's better than the dull school hallways, there's a lot of us students who hang around these areas.
-
-Let's go, we can't possibly waste any more time, let's hit Nabana Diner!
-
-[Just when you two started walking, you felt like someone bumped into you. You went and looked back at who it was.]
-
-Huh, what's up br-
-
-Oh, look who it is! [he turned to the unknown girl]
+Dude, I ate waaay too much of that steak...
 
 Hiromi
 
-KODA! YOU STOLE MY HOMEWORK YESTERDAY!!!
+You ordered three steaks, for yourself!
 
-YOU KNOW I HAD TO TURN THAT IN, GIVE IT BACK!
+You didn't even share a piece with me, ugh!
 
-[She looked at him angrily, then looked at you, calming down.]
-
-Oh, aren't you that new guy? What's your name again?
+At least Asa was chivalrous enough to share a french fry with me, you should learn from him Koda!
 
 Koda
 
-[interrupting]
+[looking at you] W-what? I did share a piece of my steak to y-
 
-His name is Asa, and...
-
-[Koda looks over at you]
-
-She's Hiromi Abara, she's my best friend. She's the one I was teasing you about on your first day here!
+Oh wait, I did end up eating it. Whoopsies.
 
 Hiromi
 
-[He looked over at Koda]
+[looks at her phone] Wow, it's already evening. Dang, we spent a long time eating, no wonder Koda is so stuffed.
 
-You what?! You know I don't wanna date anyone, Koda!
+Although, how could it get late so quickly... That's weird.
 
-[She looks back at you]
-
-Sorry, this doofus always has something to say. You're not the only one, but definitely his favorite. Ugh!
-
-I'm in your same class, I'm the girl sitting next to Koda. He can be quite a handful, I know...
-
-[He looked at Koda]
-
-Where are you two going anyways, wait let me guess...
-
-Nabana? [looks at Koda]
+It's 8PM, it's quite late.
 
 Koda
 
-Of course we are, wanna come? You'll have to pay for your own food though, I'm already treating Asa here.
+[looks frantically at Hiromi, trying to search for any signs of joking. He looks quite disappointed.]
+
+Dude, a whole day spent in Nabana. That's surprisingly fun!
+
+That's a new record, we gotta celebrate with more eating [he teased]
 
 Hiromi
 
-WHAT?! Don't you have a sense of chivalry, why not pay for your best friend? I literally bought you that shirt for your birthday last year!
+[looked at Koda] You're gonna burst with all that eating.
+
+A-anyways, we should call it a day. It's already pretty late, and I have studying to do for the upcoming test.
 
 Koda
 
-[embarassed] Uhh, well... Let's just go to Nabana Diner!
+[looks at her, then at you] Ugh, I completely forgot about that. Guess I was having too much fun.
+
+I really gotta study too, or else it'll kill my grade!
+
+Hey, maybe we can schedule a study session! We can all study together over at my place!
+
+How's that sound y'all?
 
 Hiromi
 
-[with a smug grin] Knew it, same old Koda. Bring up something like that and he'll stop being a headache.
+Hey, that doesn't sound too bad. Surprisingly brilliant for a hollowhead like you!
 
-Let's go, I'm Hiromi Abara by the way, I guess Koda already told you that.
+Well, it's settled! Let's meet up tomorrow at Koda's house.
 
-[He looked at Koda, already walking away in a rush]
+Maybe after three? I'm okay with any time as long as it's not too late.
 
-W-wait for me, I got small legs!
+Koda
 
-[You started walking with the two, feeling like you just made a new friend. Hiromi Abara]
+Alright, 4PM it is! I'll organize my room for the perfect study session!
 
-[You completely pushed the thoughts about Midnight aside and enjoyed your time with them. What could possibly happen if you didn't?]";
+Hiromi
+
+[looks at Koda, slightly confused] Um, how about the living room instead?
+
+Koda
+
+[he looks disappointed, but masks it with his signature smirk]
+
+O-oh, of course! Living room it is. Let's get out of here, we don't wanna waste any more time.
+
+[A voice echoed from the kitchen, getting closer to you and your friends.] Hey kids, we're closing. Get outta here, scram!
+
+Everyone
+
+Yes sir!
+
+You
+
+[With that, you and your friends left the restaurant. The sun had set and only a few souls walked the streets.]
+
+[Hiromi went her own way, you and Koda took the train back to your apartments respectively.]
+
+[Midnight didn't call or interrupt you today. What could he be up to?]";
 
     void Awake()
     {
@@ -198,14 +205,14 @@ W-wait for me, I got small legs!
 
         if (dialogueLines.Count == 0)
         {
-            Debug.LogWarning("Scene10Event could not parse any dialogue lines.");
+            Debug.LogWarning("Scene11Event could not parse any dialogue lines.");
         }
     }
 
     bool IsSpeakerHeader(string line)
     {
         string normalizedLine = NormalizeSpeakerHeader(line);
-        return normalizedLine == "You" || normalizedLine == "Hiromi" || normalizedLine == "Koda";
+        return normalizedLine == "You" || normalizedLine == "Hiromi" || normalizedLine == "Koda" || normalizedLine == "Everyone";
     }
 
     string NormalizeSpeakerHeader(string line)
@@ -405,6 +412,48 @@ W-wait for me, I got small legs!
         }
     }
 
+    IEnumerator FadeInGameObject(GameObject targetObject, float duration = 1f)
+    {
+        if (targetObject == null)
+        {
+            yield break;
+        }
+
+        targetObject.SetActive(true);
+        SetExpressionAlpha(targetObject, 0f);
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Clamp01(elapsed / duration);
+            SetExpressionAlpha(targetObject, alpha);
+            yield return null;
+        }
+
+        SetExpressionAlpha(targetObject, 1f);
+    }
+
+    IEnumerator FadeOutGameObject(GameObject targetObject, float duration = 1f)
+    {
+        if (targetObject == null)
+        {
+            yield break;
+        }
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Clamp01(1f - (elapsed / duration));
+            SetExpressionAlpha(targetObject, alpha);
+            yield return null;
+        }
+
+        SetExpressionAlpha(targetObject, 0f);
+        targetObject.SetActive(false);
+    }
+
     void HideAllCharacterExpressionsInstant()
     {
         GameObject[] expressions = {
@@ -449,8 +498,26 @@ W-wait for me, I got small legs!
 
     void ApplyDialogueExpression(int index, string speaker)
     {
+        if (speaker == "Hiromi")
+        {
+            ApplyHiromiExpressionFromText(textToSpeak);
+            return;
+        }
+
+        if (speaker == "Koda")
+        {
+            ApplyKodaExpressionFromText(textToSpeak);
+            return;
+        }
+
         if (speaker == "You")
         {
+            if (!string.IsNullOrWhiteSpace(textToSpeak) && textToSpeak.Contains("Koda looks quite"))
+            {
+                ShowKodaFocusedExpression("embarrassed");
+                return;
+            }
+
             if (index == dialogueLines.Count - 1)
             {
                 HideAllCharacterExpressionsInstant();
@@ -459,73 +526,208 @@ W-wait for me, I got small legs!
             return;
         }
 
-        switch (index)
+        if (speaker == "Everyone")
         {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-                ShowKodaFocusedExpression("smile");
-                break;
-            case 7:
-            case 8:
-            case 9:
-                ShowHiromiExpression("angry");
-                break;
-            case 10:
-                ShowHiromiExpression("shocked");
-                break;
-            case 11:
-                ShowKodaFocusedExpression("neutral");
-                break;
-            case 12:
-            case 13:
-            case 14:
-                ShowKodaFocusedExpression("smile");
-                break;
-            case 15:
-            case 16:
-                ShowHiromiExpression("angry");
-                break;
-            case 17:
-            case 19:
-            case 20:
-                ShowHiromiExpression("neutral");
-                break;
-            case 18:
-                ShowHiromiExpression("smile");
-                break;
-            case 21:
-            case 22:
-                ShowHiromiExpression("shocked");
-                break;
-            case 23:
-                ShowKodaFocusedExpression("smile");
-                break;
-            case 24:
-                ShowHiromiExpression("angry");
-                break;
-            case 25:
-                ShowKodaFocusedExpression("embarrassed");
-                break;
-            case 26:
-                ShowHiromiExpression("smug");
-                break;
-            case 27:
-                ShowHiromiExpression("smile");
-                break;
-            case 28:
-                ShowHiromiExpression("neutral");
-                break;
-            case 29:
-                ShowHiromiExpression("shocked");
-                break;
-            case 30:
-                ShowHiromiExpression("smile");
-                break;
+            HideAllCharacterExpressionsInstant();
+            return;
         }
+
+        HideAllCharacterExpressionsInstant();
+    }
+
+    void ApplyHiromiExpressionForLine(string lineText)
+    {
+        if (string.IsNullOrWhiteSpace(lineText))
+        {
+            ShowHiromiExpression("neutral");
+            return;
+        }
+
+        if (lineText.Contains("ordered three steaks")
+            || lineText.Contains("didn't even share")
+            || lineText.Contains("should learn from him Koda"))
+        {
+            ShowHiromiExpression("angry");
+            return;
+        }
+
+        if (lineText.Contains("already evening")
+            || lineText.Contains("how could it get late so quickly")
+            || lineText.Contains("It’s 8PM")
+            || lineText.Contains("It's 8PM")
+            || lineText.Contains("Maybe after three")
+            || lineText.Contains("slightly confused"))
+        {
+            ShowHiromiExpression("shocked");
+            return;
+        }
+
+        if (lineText.Contains("settled")
+            || lineText.Contains("Hiromi Abara")
+            || lineText.Contains("not too late"))
+        {
+            ShowHiromiExpression("smile");
+            return;
+        }
+
+        if (lineText.Contains("phone"))
+        {
+            ShowHiromiExpression("neutral");
+            return;
+        }
+
+        ShowHiromiExpression("neutral");
+    }
+
+    void ApplyKodaExpressionForLine(string lineText)
+    {
+        if (string.IsNullOrWhiteSpace(lineText))
+        {
+            ShowKodaFocusedExpression("neutral");
+            return;
+        }
+
+        if (lineText.Contains("ate waaay too much")
+            || lineText.Contains("share a piece")
+            || lineText.Contains("forgot about that")
+            || lineText.Contains("kill my grade"))
+        {
+            ShowKodaFocusedExpression("embarrassed");
+            return;
+        }
+
+        if (lineText.Contains("looks frantically")
+            || lineText.Contains("closing. Get outta here")
+            || lineText.Contains("scram"))
+        {
+            ShowKodaFocusedExpression("surprised");
+            return;
+        }
+
+        if (lineText.Contains("surprisingly fun")
+            || lineText.Contains("study session")
+            || lineText.Contains("How's that sound")
+            || lineText.Contains("4PM"))
+        {
+            ShowKodaFocusedExpression("smile");
+            return;
+        }
+
+        if (lineText.Contains("celebrate with more eating")
+            || lineText.Contains("signature smirk"))
+        {
+            ShowKodaFocusedExpression("smirk");
+            return;
+        }
+
+        if (lineText.Contains("disappointed"))
+        {
+            ShowKodaFocusedExpression("embarrassed");
+            return;
+        }
+
+        ShowKodaFocusedExpression("neutral");
+    }
+
+    void ApplyHiromiExpressionFromText(string lineText)
+    {
+        if (string.IsNullOrWhiteSpace(lineText))
+        {
+            ShowHiromiExpression("neutral");
+            return;
+        }
+
+        if (lineText.Contains("ordered three steaks")
+            || lineText.Contains("didn't even share")
+            || lineText.Contains("should learn from him Koda"))
+        {
+            ShowHiromiExpression("angry");
+            return;
+        }
+
+        if (lineText.Contains("hollowhead"))
+        {
+            ShowHiromiExpression("smug");
+            return;
+        }
+
+        if (lineText.Contains("already evening")
+            || lineText.Contains("how could it get late so quickly")
+            || lineText.Contains("It's 8PM")
+            || lineText.Contains("8PM")
+            || lineText.Contains("Maybe after three")
+            || lineText.Contains("slightly confused"))
+        {
+            ShowHiromiExpression("shocked");
+            return;
+        }
+
+        if (lineText.Contains("doesn't sound too bad")
+            || lineText.Contains("settled")
+            || lineText.Contains("Hiromi Abara")
+            || lineText.Contains("not too late"))
+        {
+            ShowHiromiExpression("smile");
+            return;
+        }
+
+        if (lineText.Contains("phone"))
+        {
+            ShowHiromiExpression("neutral");
+            return;
+        }
+
+        ShowHiromiExpression("neutral");
+    }
+
+    void ApplyKodaExpressionFromText(string lineText)
+    {
+        if (string.IsNullOrWhiteSpace(lineText))
+        {
+            ShowKodaFocusedExpression("neutral");
+            return;
+        }
+
+        if (lineText.Contains("ate waaay too much")
+            || lineText.Contains("share a piece")
+            || lineText.Contains("forgot about that")
+            || lineText.Contains("kill my grade"))
+        {
+            ShowKodaFocusedExpression("embarrassed");
+            return;
+        }
+
+        if (lineText.Contains("looks frantically")
+            || lineText.Contains("closing. Get outta here")
+            || lineText.Contains("scram"))
+        {
+            ShowKodaFocusedExpression("surprised");
+            return;
+        }
+
+        if (lineText.Contains("surprisingly fun")
+            || lineText.Contains("study session")
+            || lineText.Contains("How's that sound")
+            || lineText.Contains("4PM"))
+        {
+            ShowKodaFocusedExpression("smile");
+            return;
+        }
+
+        if (lineText.Contains("celebrate with more eating")
+            || lineText.Contains("signature smirk"))
+        {
+            ShowKodaFocusedExpression("smirk");
+            return;
+        }
+
+        if (lineText.Contains("disappointed"))
+        {
+            ShowKodaFocusedExpression("embarrassed");
+            return;
+        }
+
+        ShowKodaFocusedExpression("neutral");
     }
 
     IEnumerator PlayLine(int index)
@@ -551,6 +753,12 @@ W-wait for me, I got small legs!
         if (speakerName == "Hiromi" && textToSpeak.Contains("screen turned black before the app closed"))
         {
             StartCoroutine(FadeOutHiromiExpressions(1.5f));
+        }
+
+        if (textToSpeak.Contains("With that, you and your friends left the restaurant. The sun had set and only a few souls walked the streets."))
+        {
+            StartCoroutine(FadeInGameObject(nightTownBG, 1.5f));
+            StartCoroutine(FadeOutGameObject(KodaBase, 1.5f));
         }
 
         charName.GetComponent<TMPro.TMP_Text>().text = speakerName;
