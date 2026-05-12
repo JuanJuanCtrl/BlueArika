@@ -135,7 +135,9 @@ Koda
 
 O-oh, of course! Living room it is. Let's get out of here, we don't wanna waste any more time.
 
-[A voice echoed from the kitchen, getting closer to you and your friends.] Hey kids, we're closing. Get outta here, scram!
+You
+
+[You heard a voice echoing from the kitchen, getting closer to you and your friends.] Hey kids, we're closing. Get outta here, scram!
 
 Everyone
 
@@ -782,7 +784,7 @@ You
         fadeOut.SetActive(true);
 
         yield return new WaitForSeconds(4f);
-        SceneManager.LoadScene(15);
+        SceneManager.LoadScene(20);
     }
 
     public void NextButton()

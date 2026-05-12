@@ -134,7 +134,7 @@ Hiromi
 
 Let's go, I'm Hiromi Abara by the way, I guess Koda already told you that.
 
-[He looked at Koda, already walking away in a rush]
+[She looked at Koda, already walking away in a rush]
 
 W-wait for me, I got small legs!
 
@@ -574,7 +574,7 @@ W-wait for me, I got small legs!
         fadeOut.SetActive(true);
 
         yield return new WaitForSeconds(4f);
-        SceneManager.LoadScene(15);
+        SceneManager.LoadScene(19);
     }
 
     public void NextButton()

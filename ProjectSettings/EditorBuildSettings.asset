@@ -62,6 +62,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Town01.unity
     guid: 04b6d79c656a2714aac186a346370567
+  - enabled: 1
+    path: Assets/Scenes/AfterResturant01.unity
+    guid: bcf1d99aead3468469a655d37aa933f4
+  - enabled: 1
+    path: Assets/Scenes/Apr18to19.unity
+    guid: c69cb59c979c61645b1e72bc6a18aa7c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
