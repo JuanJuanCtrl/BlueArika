@@ -12,6 +12,10 @@ public class KodaLateMidnight : MonoBehaviour
     [SerializeField] GameObject charName;
     [SerializeField] GameObject fadeOut;
 
+    [Header("Audio")]
+    [SerializeField] AudioSource bgm;
+    [SerializeField] float startingVolume = 0.094f;
+
     [Header("Text System")]
     [SerializeField] string textToSpeak;
     [SerializeField] float charDelay = 0.04f;
@@ -27,6 +31,12 @@ public class KodaLateMidnight : MonoBehaviour
     {
         tmp = textBox.GetComponent<TMP_Text>();
         nameText = charName.GetComponent<TMP_Text>();
+
+        if (bgm != null)
+        {
+            bgm.volume = startingVolume;
+        }
+
         StartCoroutine(EventStarter());
     }
 
@@ -55,27 +65,64 @@ public class KodaLateMidnight : MonoBehaviour
         {
             case 0:
                 nameText.text = "You";
-                textToSpeak = "It's almost evening. You received a message from Koda.";
+                textToSpeak = "You and Hiromi waited for Koda for a long time, you studied with her for some time but decided to stop after Koda started taking too long.";
                 break;
+
             case 1:
-                nameText.text = "Koda";
-                textToSpeak = "Yo bro! Sorry for the wait, come here to get the study session going!";
+                nameText.text = "Hiromi";
+                textToSpeak = "Why's it taking him so long to buy some snacks? He's the type to pick those pretty easily!";
                 break;
+
             case 2:
-                nameText.text = "Koda";
-                textToSpeak = "Oh I almost forgot, I live over at Main Street, so I hope you don't mind the walk.";
+                nameText.text = "Hiromi";
+                textToSpeak = "I hope he didn't get mugged or something, we'd have to schedule a rescue mission! [she tried to joke, but it came out more worried than anything.]";
                 break;
+
             case 3:
-                nameText.text = "Koda";
-                textToSpeak = "I already phoned Hiromi, she was totally pissed about the idea of studying so late.";
-                break;
-            case 4:
-                nameText.text = "Koda";
-                textToSpeak = "Don't worry, she calmed down. She's coming anyways. Well anyways, see you in a bit bro!";
-                break;
-            case 5:
                 nameText.text = "You";
-                textToSpeak = "You shoved your phone back in your pocket. You grabbed your keys and headed out the door. You made your way into Koda's house...";
+                textToSpeak = "[You felt like hiding the strange blue fog and Midnight was becoming too much to bear, so you went on and explained to her just that...]";
+                break;
+
+            case 4:
+                nameText.text = "Hiromi";
+                textToSpeak = "Oh no, it's 11:50PM! He HAS to get here soon! Or else... If what you're telling me is true...";
+                break;
+
+            case 5:
+                nameText.text = "Hiromi";
+                textToSpeak = "We... We have to go and look for him but... I don't want to go out there, it's too dangerous! I don't want to get hurt or worse, I just want to stay here and wait for him to come back...";
+                break;
+
+            case 6:
+                nameText.text = "Hiromi";
+                textToSpeak = "He's not dumb enough to forget that, I know him better than anyone else... [her voice seems to be wavering as she spoke, so you decided to stop her before she broke into tears.]";
+                break;
+
+            case 7:
+                nameText.text = "You";
+                textToSpeak = "[You tried to comfort her, but she was too scared to listen to you, so you just stayed quiet and waited for Koda to come back.]";
+                break;
+
+            case 8:
+                nameText.text = "You";
+                textToSpeak = "[Your mind went back to Midnight. He seems like the only hope for some kind of explanation of the whole thing...]";
+                break;
+
+            case 9:
+                nameText.text = "You";
+                textToSpeak = "[Time went too fast that you and Hiromi failed to realize...]";
+                break;
+
+            case 10:
+                nameText.text = "";
+                textToSpeak = "[The clock has striked twelve...]";
+
+                // Instantly cut the music
+                if (bgm != null)
+                {
+                    bgm.volume = 0f;
+                }
+
                 break;
         }
 
@@ -109,7 +156,7 @@ public class KodaLateMidnight : MonoBehaviour
 
         introIndex++;
 
-        if (introIndex <= 5)
+        if (introIndex <= 10)
         {
             StartCoroutine(PlayIntroLine(introIndex));
         }
@@ -131,6 +178,6 @@ public class KodaLateMidnight : MonoBehaviour
         }
 
         yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene(21);
+        SceneManager.LoadScene(24);
     }
 }

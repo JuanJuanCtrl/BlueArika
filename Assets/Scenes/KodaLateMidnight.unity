@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 390877832}
   - component: {fileID: 390877834}
   m_Layer: 5
-  m_Name: ChapterName
+  m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: After school...
+  m_text: 4 Hours Later...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2c7b4d260693ff9498e8e6cd7f744c65, type: 2}
   m_sharedMaterial: {fileID: -7034002205182556623, guid: 2c7b4d260693ff9498e8e6cd7f744c65, type: 2}
@@ -1669,8 +1669,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: KodaCall01, Assembly-CSharp
+      - m_Target: {fileID: 1882087581}
+        m_TargetAssemblyTypeName: KodaLateMidnight, Assembly-CSharp
         m_MethodName: NextButton
         m_Mode: 1
         m_Arguments:
@@ -1768,6 +1768,8 @@ MonoBehaviour:
   nextButton: {fileID: 1863780411}
   charName: {fileID: 1568430983}
   fadeOut: {fileID: 1457897432}
+  bgm: {fileID: 1849458008}
+  startingVolume: 0.094
   textToSpeak: 
   charDelay: 0.04
 --- !u!1 &2012326332
