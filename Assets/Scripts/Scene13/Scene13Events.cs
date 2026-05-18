@@ -629,7 +629,7 @@ In the flesh…";
         fadeOut.SetActive(true);
 
         yield return new WaitForSeconds(4f);
-        SceneManager.LoadScene(26);
+        SceneManager.LoadScene(0);
     }
 
     public void NextButton()

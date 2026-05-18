@@ -719,9 +719,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1819824715}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19cf1cc0b050fda45bf30758209dde57, type: 3}
+  m_Script: {fileID: 11500000, guid: b69d91bf5e5b1fc41aafa23383cec216, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DayTransition
+  m_EditorClassIdentifier: Assembly-CSharp::DayTransition2
   previousDayImage: {fileID: 330804222}
   nextDayImage: {fileID: 1403771537}
   fadeDuration: 1
