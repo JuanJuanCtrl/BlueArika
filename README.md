@@ -26,3 +26,5 @@ Released as the first chapter of **BlueArika**.
 Since this project was originally created as a high school final, it’s unlikely that additional chapters will release anytime soon.
 
 However, I still plan to continue the story and eventually write a proper ending later this summer. If that happens, this repository will continue to receive updates.
+
+Postsummer edit: I forgot about the story altogether, so I'll continue this sometime later.
