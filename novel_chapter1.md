@@ -2,7 +2,7 @@
 
 <br>
 
-“New day, new life. My name is Asa Webb, and starting today—I’ll be attending Blue Sisters High School. It’s located in Kasato, a quiet northern town in Japan. The air feels clear, the people seem joyful. It really feels like the beginning of something great,” he internally monologued.
+*“New day, new life. My name is Asa Webb, and starting today—I’ll be attending Blue Sisters High School. It’s located in Kasato, a quiet northern town in Japan. The air feels clear, the people seem joyful. It really feels like the beginning of something great,”* he internally monologued.
 
 The fast train cut through the air as it travelled to his new destination—the place where he’ll live from now on. Asa walked the busy car, steadily walking to avoid tripping. But suddenly, the train hit a hard bump that sent him flying forward. He crashed into the person in front of him, and a thump followed. He quickly steadied himself, grabbing an occupied handrail. The person he accidentally bumped into started to turn, and he feared he would get cursed at—or even worse. The guy finally turned around. He was met with an embarrassed, apologetic smile instead.
 
