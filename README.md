@@ -27,5 +27,16 @@ Since this project was originally created as a high school final, it’s unlikel
 
 However, I still plan to continue the story and eventually write a proper ending later this summer. If that happens, this repository will continue to receive updates.
 
-Post summer edit: I forgot about the story altogether, so I'll continue this sometime later. I don't think I'll continue working on the game, but I *will* continue working on the story itself.
-I will post a link to a website once it's done, where it will be available to read for everyone. It will be written in novel-style prose.
+Post summer edit: I forgot about the story altogether, so I'll continue this sometime later. I don't think I'll continue working on the game, but I *will* continue working on the story itself. You can find it below.
+
+
+
+<br>
+
+# Blue Arika Novel
+
+## Table of Contents
+* [Chapter 1](novel_chapter1.md)
+* [Chapter 2](novel_chapter2.md)
+
+All chapters will be available here. If I missed one here, you can check the repository and search them. They are labeled as `novel_chapternumber`.
