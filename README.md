@@ -4,6 +4,8 @@
 > 
 > This project has been archived / deprecated. It will not receive any new feature updates, bug fixes, or security patches. Feel free to fork the project, but use it at your own risk. I discovered there were some MASSIVE errors, and I decided not to continue the project here. I will actually be continuing this project under a repository name Riding Blue, it is not available right now — it will be later. I will put a link to the repository once I finish it, and it will be under a different account of mine.
 
+You can visit the Riding Blue repository [here](https://github.com/JovialFisher/RidingBlue/).
+
 <br></br>
 
 # [PREMISE]
@@ -33,9 +35,7 @@ Since this project was originally created as a high school final, it’s unlikel
 
 However, I still plan to continue the story and eventually write a proper ending later this summer. If that happens, this repository will continue to receive updates.
 
-Post summer edit: I forgot about the story altogether, so I'll continue this sometime later. I don't think I'll continue working on the game, but I *will* continue working on the story itself. You can find it below.
-
-
+Post summer edit: I forgot about the story altogether, so I'll continue this sometime later. I don't think I'll continue working on the game, but I *will* continue working on the story itself.
 
 <br>
 
