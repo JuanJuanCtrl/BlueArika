@@ -2,7 +2,7 @@
 
 > **⚠️ WARNING: This repository is no longer maintained.**
 > 
-> This project has been archived / deprecated. It will not receive any new feature updates, bug fixes, or security patches. Feel free to fork the project, but use it at your own risk. I discovered there were some MASSIVE errors, and I decided not to continue the project here. I will actually be continuing this project under a repository name Riding Blue, it is not available right now — it will be later. I will put a link to the repository once I finish it, and it will be under a different account of mine.
+> This project has been archived / deprecated. It will not receive any new feature updates, bug fixes, or security patches. Feel free to fork the project, but use it at your own risk. I discovered there were some MASSIVE errors, and I decided not to continue the project here. I will be continuing this project under the repository name Riding Blue, which you can find below.
 
 You can visit the Riding Blue repository [here](https://github.com/JovialFisher/RidingBlue/).
 
